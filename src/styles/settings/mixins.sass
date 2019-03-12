@@ -1,0 +1,64 @@
+@mixin overflow-text($lines: 3, $fz: 20px, $lh: 1.4)
+  display: block
+  display: -webkit-box
+  max-height: $fz*$lh*$lines
+  font-size: $fz
+  line-height: $lh
+  -webkit-line-clamp: $lines
+  -webkit-box-orient: vertical
+  overflow: hidden
+  text-overflow: ellipsis
+
+@mixin line-hover
+  position: relative
+  display: inline-block
+  color: rgba($color-text, .7)
+  border-bottom: 1px solid rgba($color-text, .2)
+  transition: $transition
+  cursor: pointer
+  &:before,
+  &:after
+    content: ''
+    position: absolute
+    top: 100%
+    display: block
+    width: 0
+    height: 1px
+    background-color: rgba($color-accent, .35)
+    transition: $transition
+  &:before
+    left: 50%
+  &:after
+    right: 50%
+  &:hover
+    border-bottom-color: transparent
+    color: $color-accent
+    &:before,
+    &:after
+      width: 50%
+
+@mixin img-hover
+  position: relative
+  cursor: pointer
+  &:before
+    content: ''
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    display: block
+    background-color: rgba(#000000, .15)
+    opacity: 0
+    visibility: hidden
+    transition: all .2s linear
+  &:hover
+    &:before
+      opacity: 1
+      visibility: visible
+
+@mixin accent-hover
+  transition: $transition
+  cursor: pointer
+  &:hover
+    color: $color-accent

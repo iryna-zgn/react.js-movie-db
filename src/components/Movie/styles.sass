@@ -1,0 +1,35 @@
+.movie
+  display: flex
+  align-items: flex-start
+  max-width: 900px
+  &__title
+    padding-top: 7px
+    margin-bottom: 10px
+    +accent-hover
+  &__prop
+    margin-bottom: 5px
+    font-size: 16px
+    color: rgba($color-text, .7)
+  &__img
+    display: inline-block
+    width: 40%
+    min-width: 40%
+    margin-right: 10px
+    background-repeat: no-repeat
+    background-size: cover
+    background-position: center
+    +img-hover
+  &__desc
+    margin-top: 10px
+    +overflow-text(3)
+  &__link
+    margin-top: 15px
+    font-size: 18px
+    +line-hover
+
+@media only screen and (min-width: 600px)
+  .movie
+    &__img
+      min-width: 200px
+      max-width: 200px
+      margin-right: 15px
