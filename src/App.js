@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import MoviesList from './components/MoviesList'
-import Header from './components/Header'
+// import Header from './components/Header'
 import Footer from './components/Footer'
 
 class App extends Component {
@@ -8,7 +8,7 @@ class App extends Component {
     return (
       <div className="container">
         <div>
-          <Header />
+          {/*<Header />*/}
           <MoviesList />
         </div>
           <Footer />

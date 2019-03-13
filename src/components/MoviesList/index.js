@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Movie from './../Movie'
-import { urlPopular, urlGenreList } from './../../configPaths'
+import { urlPopular, urlSearch, urlGenreList } from './../../configPaths'
 
 export default class MoviesList extends Component {
     constructor(props) {
@@ -10,12 +10,20 @@ export default class MoviesList extends Component {
             movies: [],
             genres: [],
             pages: null,
-            page: 1
+            page: 1,
+            serchingStr: '',
+            mode: 'popular'
         }
     }
 
-    fetchPopular = () => {
-        fetch(`${urlPopular}${this.state.page}`)
+    getLoadUrl = () => {
+        return this.state.mode === 'popular'
+            ? `${urlPopular}&page=${this.state.page}`
+            : `${urlSearch}&query=${this.state.serchingStr}&page=${this.state.page}`
+    }
+
+    fetchMovies = () => {
+        fetch(this.getLoadUrl())
             .then(response => response.json())
             .then(data => this.setState(state => ({
                 movies: [...state.movies, ...data.results],
@@ -34,7 +42,23 @@ export default class MoviesList extends Component {
     loadNextPage = () => {
         this.setState(state => ({
             page: state.page + 1
-        }), () => this.fetchPopular())
+        }), () => this.fetchMovies())
+    }
+
+    handleChange = (e) => {
+        this.setState({
+            serchingStr: e.target.value
+        })
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault()
+        this.setState(state => ({
+            movies: [],
+            page: 1,
+            pages: 0,
+            mode: 'search'
+        }), () => this.fetchMovies())
     }
 
     getMovieItems = () => {
@@ -51,11 +75,6 @@ export default class MoviesList extends Component {
         return movieItems
     }
 
-    componentDidMount() {
-        this.fetchPopular()
-        this.fetchGenres()
-    }
-
     renderLoadMore = () => {
         if (this.state.pages > 1) {
             return <div className='u-center'>
@@ -68,9 +87,29 @@ export default class MoviesList extends Component {
         }
     }
 
+    componentDidMount() {
+        this.fetchMovies()
+        this.fetchGenres()
+    }
+
     render() {
         return (
             <div>
+
+                {/*make a component*/}
+                <form
+                    className='search'
+                    onSubmit={ this.handleSubmit }>
+                    <input
+                        value={ this.state.serchingStr }
+                        className='search__input'
+                        type='text'
+                        onChange={ this.handleChange }/>
+                    <button className='search__btn'>search</button>
+                    <div>{ this.state.mode }</div>
+                </form>
+                {/*make a component*/}
+
                 <div className='movies-list'>{ this.getMovieItems() }</div>
                 { this.renderLoadMore() }
             </div>
