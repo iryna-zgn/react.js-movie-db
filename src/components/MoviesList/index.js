@@ -9,6 +9,7 @@ export default class MoviesList extends Component {
         this.state = {
             movies: [],
             genres: [],
+            pages: null,
             page: 1
         }
     }
@@ -17,7 +18,8 @@ export default class MoviesList extends Component {
         fetch(`${urlPopular}${this.state.page}`)
             .then(response => response.json())
             .then(data => this.setState(state => ({
-                movies: [...state.movies, ...data.results]
+                movies: [...state.movies, ...data.results],
+                pages: data.total_pages
             })))
     }
 
@@ -54,17 +56,23 @@ export default class MoviesList extends Component {
         this.fetchGenres()
     }
 
+    renderLoadMore = () => {
+        if (this.state.pages > 1) {
+            return <div className='u-center'>
+                        <div
+                            className='more-link u-center'
+                            onClick={ this.loadNextPage }>
+                            Load more
+                        </div>
+                    </div>
+        }
+    }
+
     render() {
         return (
             <div>
                 <div className='movies-list'>{ this.getMovieItems() }</div>
-                <div className='u-center'>
-                    <div
-                        className='more-link'
-                        onClick={ this.loadNextPage }>
-                        Load more
-                    </div>
-                </div>
+                { this.renderLoadMore() }
             </div>
         )
     }
