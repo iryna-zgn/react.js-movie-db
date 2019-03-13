@@ -25,6 +25,8 @@ export default class Movie extends Component {
         return genreItems
     }
 
+    getImg = (img) => img ? `${urlImg}${img}` : 'static/images/rho_light.jpg'
+
     render() {
         const { movie } = this.props
 
@@ -32,7 +34,7 @@ export default class Movie extends Component {
             <div className='movie'>
                 <div
                     className='movie__img'
-                    style={{ backgroundImage: `url(${urlImg}${movie.poster_path})` }}>
+                    style={{ backgroundImage: `url(${this.getImg(movie.poster_path)})` }}>
                     <img
                         src='static/images/dummy_420x630.jpg'
                         alt=''

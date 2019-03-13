@@ -11,7 +11,7 @@ export default class MoviesList extends Component {
             genres: [],
             pages: null,
             page: 1,
-            serchingStr: '',
+            searchingStr: '',
             mode: 'popular'
         }
     }
@@ -19,7 +19,7 @@ export default class MoviesList extends Component {
     getLoadUrl = () => {
         return this.state.mode === 'popular'
             ? `${urlPopular}&page=${this.state.page}`
-            : `${urlSearch}&query=${this.state.serchingStr}&page=${this.state.page}`
+            : `${urlSearch}&query=${this.state.searchingStr}&page=${this.state.page}`
     }
 
     fetchMovies = () => {
@@ -47,18 +47,20 @@ export default class MoviesList extends Component {
 
     handleChange = (e) => {
         this.setState({
-            serchingStr: e.target.value
+            searchingStr: e.target.value
         })
     }
 
     handleSubmit = (e) => {
         e.preventDefault()
-        this.setState(state => ({
-            movies: [],
-            page: 1,
-            pages: 0,
-            mode: 'search'
-        }), () => this.fetchMovies())
+        if (this.state.searchingStr.length) {
+            this.setState(state => ({
+                movies: [],
+                page: 1,
+                pages: 0,
+                mode: 'search'
+            }), () => this.fetchMovies())
+        }
     }
 
     getMovieItems = () => {
@@ -101,12 +103,11 @@ export default class MoviesList extends Component {
                     className='search'
                     onSubmit={ this.handleSubmit }>
                     <input
-                        value={ this.state.serchingStr }
+                        value={ this.state.searchingStr }
                         className='search__input'
                         type='text'
                         onChange={ this.handleChange }/>
                     <button className='search__btn'>search</button>
-                    <div>{ this.state.mode }</div>
                 </form>
                 {/*make a component*/}
 
