@@ -2,6 +2,29 @@ import React, { Component } from 'react'
 import { urlImg } from './../../configPaths'
 
 export default class Movie extends Component {
+    getYear = date => date.slice(0, 4)
+
+    getGenres = (ids) => {
+        const { genres } = this.props
+        const currentGenres = []
+
+        ids.forEach(id => {
+            genres.forEach(genre => {
+                if (genre.id === id) {
+                    currentGenres.push(genre)
+                }
+            })
+        })
+
+        const genreItems = currentGenres.map((genre, index) => {
+            return <span key={ genre.id }>
+                        { (index ? `, ${genre.name.toLowerCase()}` : genre.name) }
+                    </span>
+        })
+
+        return genreItems
+    }
+
     render() {
         const { movie } = this.props
 
@@ -30,28 +53,5 @@ export default class Movie extends Component {
                 </div>
             </div>
         )
-    }
-
-    getYear = date => date.slice(0, 4)
-
-    getGenres = (ids) => {
-        const { genres } = this.props
-        const currentGenres = []
-
-        ids.forEach(id => {
-            genres.forEach(genre => {
-                if (genre.id === id) {
-                    currentGenres.push(genre)
-                }
-            })
-        })
-
-        const genreItems = currentGenres.map((genre, index) => {
-            return <span key={ genre.id }>
-                        { (index ? `, ${genre.name.toLowerCase()}` : genre.name) }
-                    </span>
-        })
-
-        return genreItems
     }
 }

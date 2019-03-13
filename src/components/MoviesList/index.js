@@ -35,25 +35,29 @@ export default class MoviesList extends Component {
         }), () => this.fetchPopular())
     }
 
+    getMovieItems = () => {
+        const movieItems = this.state.movies.map(movie => {
+            return <div
+                key={movie.id}
+                className='movies-list__item'>
+                <Movie
+                    movie={ movie }
+                    genres={ this.state.genres }/>
+            </div>
+        })
+
+        return movieItems
+    }
+
     componentDidMount() {
         this.fetchPopular()
         this.fetchGenres()
     }
 
     render() {
-        const movieItems = this.state.movies.map(movie => {
-            return <div
-                    key={movie.id}
-                    className='movies-list__item'>
-                        <Movie
-                            movie={ movie }
-                            genres={ this.state.genres }/>
-                    </div>
-        })
-
         return (
             <div>
-                <div className='movies-list'>{ movieItems }</div>
+                <div className='movies-list'>{ this.getMovieItems() }</div>
                 <div className='u-center'>
                     <div
                         className='more-link'
