@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Movie from './../../components/Movie'
+import Movie from './../Movie'
 import { urlPopular, urlGenreList } from './../../configPaths'
 
 export default class MoviesList extends Component {
@@ -8,22 +8,36 @@ export default class MoviesList extends Component {
 
         this.state = {
             movies: [],
-            genres: []
+            genres: [],
+            page: 1
         }
     }
 
-    componentDidMount() {
-        fetch(urlPopular)
+    fetchPopular = () => {
+        fetch(`${urlPopular}${this.state.page}`)
             .then(response => response.json())
-            .then(data => this.setState({
-                movies: data.results
-            }))
+            .then(data => this.setState(state => ({
+                movies: [...state.movies, ...data.results]
+            })))
+    }
 
+    fetchGenres = () => {
         fetch(urlGenreList)
             .then(response => response.json())
             .then(data => this.setState({
                 genres: data.genres
             }))
+    }
+
+    loadNextPage = () => {
+        this.setState(state => ({
+            page: state.page + 1
+        }), () => this.fetchPopular())
+    }
+
+    componentDidMount() {
+        this.fetchPopular()
+        this.fetchGenres()
     }
 
     render() {
@@ -38,8 +52,15 @@ export default class MoviesList extends Component {
         })
 
         return (
-            <div className='movies-list'>
-                { movieItems }
+            <div>
+                <div className='movies-list'>{ movieItems }</div>
+                <div className='u-center'>
+                    <div
+                        className='more-link'
+                        onClick={ this.loadNextPage }>
+                        Load more
+                    </div>
+                </div>
             </div>
         )
     }

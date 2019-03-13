@@ -4,7 +4,6 @@ import { urlImg } from './../../configPaths'
 export default class Movie extends Component {
     render() {
         const { movie } = this.props
-        console.log(movie)
 
         return (
             <div className='movie'>
@@ -27,7 +26,7 @@ export default class Movie extends Component {
                         { this.getYear(movie.release_date) }
                     </div>
                     <div className='movie__desc'>{ movie.overview }</div>
-                    <div className="movie__link">Read more</div>
+                    <div className='movie__link'>Read more</div>
                 </div>
             </div>
         )
