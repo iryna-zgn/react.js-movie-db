@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import Movie from './../../components/Movie'
-import { urlPopular } from './../../configPaths'
+import { urlPopular, urlGenreList } from './../../configPaths'
 
 export default class MoviesList extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            movies: []
+            movies: [],
+            genres: []
         }
     }
 
@@ -17,6 +18,12 @@ export default class MoviesList extends Component {
             .then(data => this.setState({
                 movies: data.results
             }))
+
+        fetch(urlGenreList)
+            .then(response => response.json())
+            .then(data => this.setState({
+                genres: data.genres
+            }))
     }
 
     render() {
@@ -24,7 +31,9 @@ export default class MoviesList extends Component {
             return <div
                     key={movie.id}
                     className='movies-list__item'>
-                        <Movie movie={ movie }/>
+                        <Movie
+                            movie={ movie }
+                            genres={ this.state.genres }/>
                     </div>
         })
 
