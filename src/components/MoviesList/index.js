@@ -10,10 +10,11 @@ export default class MoviesList extends Component {
         this.state = {
             movies: [],
             genres: [],
-            pages: null,
+            results: 0,
+            pages: 1,
             page: 1,
-            searchingStr: '',
             mode: 'popular',
+            searchingStr: '',
             isPreloader: false
         }
     }
@@ -29,7 +30,8 @@ export default class MoviesList extends Component {
             .then(response => response.json())
             .then(data => this.setState(state => ({
                 movies: [...state.movies, ...data.results],
-                pages: data.total_pages
+                pages: data.total_pages,
+                results: data.total_results
             })))
             .then(() => this.setState({
                 isPreloader: false
@@ -44,11 +46,29 @@ export default class MoviesList extends Component {
             }))
     }
 
+    switchMode = (mode) => {
+        if (mode === 'popular') {
+            this.setState({
+                searchingStr: ''
+            })
+        }
+        this.setState(state => ({
+            movies: [],
+            page: 1,
+            pages: 1,
+            mode: mode
+        }), () => this.fetchMovies())
+    }
+
     loadNextPage = () => {
         this.setState(state => ({
             page: state.page + 1,
             isPreloader: true
         }), () => this.fetchMovies())
+    }
+
+    loadPopular = () => {
+        this.switchMode('popular')
     }
 
     setSearchingStr = (e) => {
@@ -57,20 +77,13 @@ export default class MoviesList extends Component {
         })
     }
 
-    handleSubmit = (e) => {
+    submitSearch = (e) => {
         e.preventDefault()
-        if (this.state.searchingStr.length) {
-            this.setState(state => ({
-                movies: [],
-                page: 1,
-                pages: 0,
-                mode: 'search'
-            }), () => this.fetchMovies())
-        }
+        this.switchMode(this.state.searchingStr.length ? 'search' : 'popular')
     }
 
-    getMovieItems = () => {
-        const movieItems = this.state.movies.map(movie => {
+    renderMovieItems = () => {
+        return this.state.movies.map(movie => {
             return <div
                 key={movie.id}
                 className='movies-list__item'>
@@ -79,8 +92,6 @@ export default class MoviesList extends Component {
                     genres={ this.state.genres }/>
             </div>
         })
-
-        return movieItems
     }
 
     renderLoadMore = () => {
@@ -99,6 +110,19 @@ export default class MoviesList extends Component {
         }
     }
 
+    renderSearchMsg = () => {
+        if (!this.state.results) {
+            return <div>
+                <div className='search__msg'>No results :(</div>
+                <div
+                    onClick={ this.loadPopular }
+                    className='search__link'>
+                    Popular movies
+                </div>
+            </div>
+        }
+    }
+
     componentDidMount() {
         this.fetchMovies()
         this.fetchGenres()
@@ -109,19 +133,22 @@ export default class MoviesList extends Component {
             <div>
 
                 {/*make a component*/}
-                <form
-                    className='search'
-                    onSubmit={ this.handleSubmit }>
-                    <input
-                        value={ this.state.searchingStr }
-                        className='search__input'
-                        type='text'
-                        onChange={ this.setSearchingStr }/>
-                    <button className='search__btn icon-search'/>
-                </form>
-                {/*make a component*/}
+                <div className='search'>
+                    <form
+                        className='search__form'
+                        onSubmit={ this.submitSearch }>
+                        <input
+                            value={ this.state.searchingStr }
+                            className='search__input'
+                            type='text'
+                            onChange={ this.setSearchingStr }/>
+                        <button className='search__btn icon-search'/>
+                        <div>{ this.state.mode }</div>
+                    </form>
+                    { this.renderSearchMsg() }
+                </div>
 
-                <div className='movies-list'>{ this.getMovieItems() }</div>
+                <div className='movies-list'>{ this.renderMovieItems() }</div>
                 { this.renderLoadMore() }
             </div>
         )
