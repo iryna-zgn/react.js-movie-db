@@ -25,11 +25,11 @@ export default class Search extends Component {
                 className='search'
                 onSubmit={ this.handleSubmit }>
                 <input
-                    value={ this.state.value }
+                    value={ this.state.searchingStr }
                     className='search__input'
                     type='text'
                     onChange={ this.handleChange }/>
-                <button className='search__btn'>search</button>
+                <button className='search__btn icon-search'/>
             </form>
         )
     }

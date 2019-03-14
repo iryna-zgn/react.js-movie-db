@@ -117,7 +117,7 @@ export default class MoviesList extends Component {
                         className='search__input'
                         type='text'
                         onChange={ this.setSearchingStr }/>
-                    <button className='search__btn'>search</button>
+                    <button className='search__btn icon-search'/>
                 </form>
                 {/*make a component*/}
 
