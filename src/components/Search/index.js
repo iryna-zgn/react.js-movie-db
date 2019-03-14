@@ -21,16 +21,18 @@ export default class Search extends Component {
 
     render() {
         return (
-            <form
-                className='search'
-                onSubmit={ this.handleSubmit }>
-                <input
-                    value={ this.state.searchingStr }
-                    className='search__input'
-                    type='text'
-                    onChange={ this.handleChange }/>
-                <button className='search__btn icon-search'/>
-            </form>
+            <div className='search'>
+                <form
+                    className='search__form'
+                    onSubmit={ this.handleSubmit }>
+                    <input
+                        value={ this.state.searchingStr }
+                        className='search__input'
+                        type='text'
+                        onChange={ this.handleChange }/>
+                    <button className='search__btn icon-search'/>
+                </form>
+            </div>
         )
     }
 }

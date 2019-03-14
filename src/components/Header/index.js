@@ -6,6 +6,7 @@ export default function header() {
     return (
         <header className='header'>
             <Logo/>
+            {/*<Search/>*/}
         </header>
     )
 }
