@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Movie from './../Movie'
+import Preloader from './../Preloader'
 import { urlPopular, urlSearch, urlGenreList } from './../../configPaths'
 
 export default class MoviesList extends Component {
@@ -12,7 +13,8 @@ export default class MoviesList extends Component {
             pages: null,
             page: 1,
             searchingStr: '',
-            mode: 'popular'
+            mode: 'popular',
+            isPreloader: false
         }
     }
 
@@ -29,6 +31,9 @@ export default class MoviesList extends Component {
                 movies: [...state.movies, ...data.results],
                 pages: data.total_pages
             })))
+            .then(() => this.setState({
+                isPreloader: false
+            }))
     }
 
     fetchGenres = () => {
@@ -41,11 +46,12 @@ export default class MoviesList extends Component {
 
     loadNextPage = () => {
         this.setState(state => ({
-            page: state.page + 1
+            page: state.page + 1,
+            isPreloader: true
         }), () => this.fetchMovies())
     }
 
-    handleChange = (e) => {
+    setSearchingStr = (e) => {
         this.setState({
             searchingStr: e.target.value
         })
@@ -78,14 +84,18 @@ export default class MoviesList extends Component {
     }
 
     renderLoadMore = () => {
-        if (this.state.pages > 1) {
+        if (this.state.pages > 1 && this.state.page !== this.state.pages) {
             return <div className='u-center'>
-                        <div
+                {
+                    this.state.isPreloader
+                        ? <Preloader />
+                        : <div
                             className='more-link u-center'
                             onClick={ this.loadNextPage }>
                             Load more
                         </div>
-                    </div>
+                }
+            </div>
         }
     }
 
@@ -106,7 +116,7 @@ export default class MoviesList extends Component {
                         value={ this.state.searchingStr }
                         className='search__input'
                         type='text'
-                        onChange={ this.handleChange }/>
+                        onChange={ this.setSearchingStr }/>
                     <button className='search__btn'>search</button>
                 </form>
                 {/*make a component*/}
