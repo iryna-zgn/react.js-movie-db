@@ -18,7 +18,8 @@ class App extends Component {
             mode: 'popular',
             searchingStr: '',
             isPreloader: false,
-            isLoaded: false
+            isLoaded: false,
+            inputFocus: false
         }
 
         this.textInput = React.createRef()
@@ -121,14 +122,12 @@ class App extends Component {
         }
     }
 
-    addFocus = () => {
-        this.textInput.current.classList.add('is-focused')
-    }
-
-    removeFocus = e => {
-        if (this.textInput && !this.textInput.current.contains(e.target)) {
-            this.textInput.current.classList.remove('is-focused')
-        }
+    toggleFocus = (e) => {
+        this.setState({
+            inputFocus: this.textInput && !this.textInput.current.contains(e.target)
+                ? false
+                : true
+        })
     }
 
     componentWillMount() {
@@ -137,6 +136,11 @@ class App extends Component {
     }
 
     render() {
+        let classNameInput = 'search__field';
+        if (this.state.inputFocus) {
+            classNameInput += ' is-focused';
+        }
+
         return (
             <div className="container">
                 <div>
@@ -149,8 +153,8 @@ class App extends Component {
                             onSubmit={ this.submitSearch }>
                             <div
                                 ref={this.textInput}
-                                className='search__field'
-                                onClick={ this.addFocus }>
+                                className={ classNameInput }
+                                onClick={ this.toggleFocus }>
                                 <input
                                     value={ this.state.searchingStr }
                                     type='text'
@@ -170,7 +174,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        document.addEventListener('click', this.removeFocus)
+        document.addEventListener('click', this.toggleFocus)
     }
 }
 
