@@ -37,6 +37,32 @@
     &:after
       width: 50%
 
+@mixin line-focus
+  position: relative
+  display: inline-block
+  border-bottom: 1px solid rgba($color-text, .2)
+  transition: $transition
+  &:before,
+  &:after
+    content: ''
+    position: absolute
+    top: 100%
+    display: block
+    width: 0
+    height: 1px
+    background-color: rgba($color-text, .5)
+    transition: $transition
+  &:before
+    left: 50%
+  &:after
+    right: 50%
+  &.is-focused
+    &:before,
+    &:after
+      width: 50%
+    input
+      border-bottom-color: transparent
+
 @mixin img-hover
   position: relative
   cursor: pointer

@@ -20,6 +20,8 @@ class App extends Component {
             isPreloader: false,
             isLoaded: false
         }
+
+        this.textInput = React.createRef()
     }
 
     getLoadUrl = () => {
@@ -51,16 +53,12 @@ class App extends Component {
     }
 
     switchMode = (mode) => {
-        if (mode === 'popular') {
-            this.setState({
-                searchingStr: ''
-            })
-        }
         this.setState(state => ({
             movies: [],
             page: 1,
             pages: 1,
-            mode: mode
+            mode: mode,
+            searchingStr: mode === 'popular' ? '' : this.state.searchingStr
         }), () => this.fetchMovies())
     }
 
@@ -93,10 +91,10 @@ class App extends Component {
                     this.state.isPreloader
                         ? <Preloader />
                         : <div
-                        className='more-link u-center'
-                        onClick={ this.loadNextPage }>
-                        Load more
-                    </div>
+                            className='more-link u-center'
+                            onClick={ this.loadNextPage }>
+                            Load more
+                            </div>
                 }
             </div>
         }
@@ -123,6 +121,16 @@ class App extends Component {
         }
     }
 
+    addFocus = () => {
+        this.textInput.current.classList.add('is-focused')
+    }
+
+    removeFocus = e => {
+        if (this.textInput && !this.textInput.current.contains(e.target)) {
+            this.textInput.current.classList.remove('is-focused')
+        }
+    }
+
     componentWillMount() {
         this.fetchMovies()
         this.fetchGenres()
@@ -139,11 +147,15 @@ class App extends Component {
                         <form
                             className='search__form'
                             onSubmit={ this.submitSearch }>
-                            <input
-                                value={ this.state.searchingStr }
-                                className='search__input'
-                                type='text'
-                                onChange={ this.setSearchingStr }/>
+                            <div
+                                ref={this.textInput}
+                                className='search__field'
+                                onClick={ this.addFocus }>
+                                <input
+                                    value={ this.state.searchingStr }
+                                    type='text'
+                                    onChange={ this.setSearchingStr }/>
+                            </div>
                             <button className='search__btn icon-search'/>
                         </form>
                         { this.renderSearchMsg() }
@@ -152,10 +164,14 @@ class App extends Component {
                     { this.renderMoviesList() }
                     { this.renderLoadMore() }
                 </div>
-            <Footer/>
-        </div>
-    )
-  }
+                <Footer/>
+            </div>
+        )
+    }
+
+    componentDidMount() {
+        document.addEventListener('click', this.removeFocus)
+    }
 }
 
 export default App
