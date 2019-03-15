@@ -3,7 +3,8 @@ import MoviesList from './components/MoviesList'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Preloader from './components/Preloader'
-import { urlPopular, urlSearch, urlGenreList } from './configPaths'
+import { urlPopular, urlSearch, urlGenreList } from './paths'
+import { modes } from './constants'
 
 class App extends Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class App extends Component {
             results: 0,
             pages: 1,
             page: 1,
-            mode: 'popular',
+            mode: modes.popular,
             searchingStr: '',
             isPreloader: false,
             isLoaded: false,
@@ -26,7 +27,7 @@ class App extends Component {
     }
 
     getLoadUrl = () => {
-        return this.state.mode === 'popular'
+        return this.state.mode === modes.popular
             ? `${urlPopular}&page=${this.state.page}`
             : `${urlSearch}&query=${this.state.searchingStr}&page=${this.state.page}`
     }
@@ -59,7 +60,7 @@ class App extends Component {
             page: 1,
             pages: 1,
             mode: mode,
-            searchingStr: mode === 'popular' ? '' : this.state.searchingStr
+            searchingStr: mode === modes.popular ? '' : this.state.searchingStr
         }), () => this.fetchMovies())
     }
 
@@ -71,7 +72,7 @@ class App extends Component {
     }
 
     loadPopular = () => {
-        this.switchMode('popular')
+        this.switchMode(modes.popular)
     }
 
     setSearchingStr = (e) => {
@@ -82,7 +83,7 @@ class App extends Component {
 
     submitSearch = (e) => {
         e.preventDefault()
-        this.switchMode(this.state.searchingStr.length ? 'search' : 'popular')
+        this.switchMode(this.state.searchingStr.length ? modes.search : modes.popular)
     }
 
     renderLoadMore = () => {
@@ -130,11 +131,6 @@ class App extends Component {
         })
     }
 
-    componentWillMount() {
-        this.fetchMovies()
-        this.fetchGenres()
-    }
-
     render() {
         let classNameInput = 'search__field';
         if (this.state.inputFocus) {
@@ -153,12 +149,12 @@ class App extends Component {
                             onSubmit={ this.submitSearch }>
                             <div
                                 ref={this.textInput}
-                                className={ classNameInput }
-                                onClick={ this.toggleFocus }>
+                                className={ classNameInput }>
                                 <input
                                     value={ this.state.searchingStr }
                                     type='text'
-                                    onChange={ this.setSearchingStr }/>
+                                    onChange={ this.setSearchingStr }
+                                    onInput={ this.toggleFocus }/>
                             </div>
                             <button className='search__btn icon-search'/>
                         </form>
@@ -174,6 +170,9 @@ class App extends Component {
     }
 
     componentDidMount() {
+        this.fetchMovies()
+        this.fetchGenres()
+
         document.addEventListener('click', this.toggleFocus)
     }
 }

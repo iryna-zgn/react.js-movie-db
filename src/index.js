@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 import './styles/styles.sass'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
+// eslint-disable-next-line
+import store from './store'
 
 ReactDOM.render(<App />, document.getElementById('root'))
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { urlImg } from './../../configPaths'
+import { urlImg } from '../../paths'
 
 export default class Movie extends Component {
     static propTypes = {
