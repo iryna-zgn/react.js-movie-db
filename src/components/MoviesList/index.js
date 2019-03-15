@@ -17,7 +17,12 @@ export default class MoviesList extends Component {
             return <CSSTransition
                         key={movie.id}
                         classNames='fade'
-                        timeout={ 500 }>
+                        timeout={{
+                            appear: 500,
+                            enter: 500,
+                            exit: 500
+                        }}
+                        appear>
                         <div className='movies-list__item'>
                             <Movie
                                 movie={ movie }
