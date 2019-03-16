@@ -1,14 +1,21 @@
 .header
   padding: 25px 0
-  font-size: 0
-  .logo,
-  .search
-    display: inline-block
-    vertical-align: middle
   .logo
-    width: 70px
-    margin-right: -70px
+    margin-bottom: 20px
   .search
     max-width: 550px
     width: 100%
-    padding-left: 90px
+
+@media only screen and (min-width: 768px)
+  .header
+    font-size: 0
+    .logo,
+    .search
+      display: inline-block
+      vertical-align: middle
+    .logo
+      width: 70px
+      margin-right: -70px
+      margin-bottom: 0
+    .search
+      padding-left: 100px
