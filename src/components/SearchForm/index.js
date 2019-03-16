@@ -6,7 +6,7 @@ import { classes } from './../../constants'
 
 class SearchForm extends Component {
     static propTypes = {
-        searchingStr: PropTypes.string
+        query: PropTypes.string
     }
 
     constructor(props) {
@@ -53,7 +53,7 @@ class SearchForm extends Component {
     // }
 
     render() {
-        const { searchingStr } = this.props
+        const { query } = this.props
 
         let classNameInput = 'search__field'
         if (this.state.isFocus) classNameInput += ` ${classes.IS_FOCUS}`
@@ -66,7 +66,7 @@ class SearchForm extends Component {
                     <div
                         className={ classNameInput }>
                         <input
-                            value={ searchingStr }
+                            value={ query }
                             type='text'
                             onChange={ this.handleChange }
                             onFocus={ this.addFocus }
@@ -81,5 +81,5 @@ class SearchForm extends Component {
 }
 
 export default connect(state => ({
-    searchingStr: state.movies.searchingStr
+    query: state.movies.query
 }), { search })(SearchForm)

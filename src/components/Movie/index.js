@@ -14,33 +14,6 @@ export default class Movie extends Component {
         genres: PropTypes.array.isRequired
     }
 
-    getYear = date => date.slice(0, 4)
-
-    getImg = img => img ? `${urlImg}${img}` : 'static/images/rho_light.jpg'
-
-    getGenres = (ids) => {
-        const { genres } = this.props
-        const currentGenres = []
-
-        ids.forEach(id => {
-            genres.forEach(genre => {
-                if (genre.id === id) {
-                    currentGenres.push(genre)
-                }
-            })
-        })
-
-        return currentGenres
-    }
-
-    renderGenres = (ids) => {
-        return this.getGenres(ids).map((genre, index) => {
-            return <span key={ genre.id }>
-                        { (index ? `, ${genre.name.toLowerCase()}` : genre.name) }
-                    </span>
-        })
-    }
-
     render() {
         const { movie } = this.props
 
@@ -60,5 +33,32 @@ export default class Movie extends Component {
                 </div>
             </div>
         )
+    }
+
+    getYear = date => date.slice(0, 4)
+
+    getImg = img => img ? `${urlImg}${img}` : 'static/images/rho_light.jpg'
+
+    getGenres = ids => {
+        const { genres } = this.props
+        const currentGenres = []
+
+        ids.forEach(id => {
+            genres.forEach(genre => {
+                if (genre.id === id) {
+                    currentGenres.push(genre)
+                }
+            })
+        })
+
+        return currentGenres
+    }
+
+    renderGenres = ids => {
+        return this.getGenres(ids).map((genre, index) => {
+            return <span key={ genre.id }>
+                        { (index ? `, ${genre.name.toLowerCase()}` : genre.name) }
+                    </span>
+        })
     }
 }

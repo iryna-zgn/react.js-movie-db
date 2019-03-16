@@ -1,38 +1,25 @@
-import { modes } from './../constants'
+import { actions } from './../constants'
+// eslint-disable-next-line
+import { Map, Record } from 'immutable'
+import { objToMap } from './../helpers'
 
-const defaultState = {
-    movies: [],
-    genres: [],
-    results: 0,
-    pages: 1,
-    page: 1,
-    mode: modes.POPULAR,
-    searchingStr: 'from store',
-    isPreloader: false,
-    isLoaded: false
-}
+const MovieRecord = Record({
+    results: [],
+    total_pages: 1,
+    pages: 0,
+    total_results: 0
+})
 
-const switchMode = (mode, str) => {
-    return {
-        movies: [],
-        page: 1,
-        pages: 1,
-        mode: mode,
-        searchingStr: mode === modes.POPULAR ? '' : str
-    }
-}
-
-const getMode = str => str.length ? modes.SEARCH : modes.POPULAR
-
-export default (state = defaultState, action) => {
-    const { type, payload } = action
+export default (state = new MovieRecord(), action) => {
+    const { type, response } = action
 
     switch (type) {
-        case 'SEARCH':
-            return {
-                ...state,
-                ...switchMode(getMode(payload.str), payload.str)
-            }
+        case actions.SEARCH:
+            return state
+
+        case actions.LOAD_MOVIES:
+            return objToMap(response, MovieRecord)
+
         default:
             return state
     }
