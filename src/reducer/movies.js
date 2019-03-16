@@ -1,24 +1,32 @@
 import { actions } from './../constants'
 // eslint-disable-next-line
 import { Map, Record } from 'immutable'
-import { objToMap } from './../helpers'
 
-const MovieRecord = Record({
+const ReducerState = Record({
     results: [],
     total_pages: 1,
-    pages: 0,
-    total_results: 0
+    page: 1,
+    total_results: 0,
+    isLoaded: false,
+    isPreloader: false,
+    query: ''
 })
 
-export default (state = new MovieRecord(), action) => {
-    const { type, response } = action
+const defaultState = new ReducerState()
+
+export default (state = defaultState, action) => {
+    const { type, payload, response } = action
 
     switch (type) {
         case actions.SEARCH:
-            return state
+            return state.set('query', payload.query)
 
         case actions.LOAD_MOVIES:
-            return objToMap(response, MovieRecord)
+            return Object.keys(response)
+                .reduce((acc, key) => acc.set(key, response[key]), state)
+
+        case actions.LOAD_NEXT_PAGE:
+            return state.set('page', state.page + 1)
 
         default:
             return state

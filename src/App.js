@@ -71,7 +71,7 @@ class App extends Component {
     //                 this.state.isPreloader
     //                     ? <Preloader />
     //                     : <div
-    //                         className='more-link u-center'
+    //                         className='more-link'
     //                         onClick={ this.loadNextPage }>
     //                         Load more
     //                         </div>

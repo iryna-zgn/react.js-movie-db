@@ -21,3 +21,9 @@ export function loadGenres() {
         callAPI: urlGenreList
     }
 }
+
+export function loadNextPage() {
+    return {
+        type: actions.LOAD_NEXT_PAGE
+    }
+}

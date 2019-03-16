@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Movie from './../Movie'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { connect } from 'react-redux'
+import { loadNextPage } from './../../ac'
 
 
 class MoviesList extends Component {
@@ -48,9 +49,11 @@ class MoviesList extends Component {
     }
 
     renderLoadMore = () => {
-        if (this.props.pages > 1) {
+        const { pages, loadNextPage } = this.props
+        if (pages > 1) {
             return <div className='u-center'>
                 <div
+                    onClick={ loadNextPage }
                     className='more-link u-center'>
                     Load more
                 </div>
@@ -63,4 +66,6 @@ export default connect(state => ({
     movies: state.movies.results,
     pages: state.movies.total_pages,
     genres: state.genres.genres
-}))(MoviesList)
+}), {
+    loadNextPage
+})(MoviesList)
