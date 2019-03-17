@@ -1,21 +1,38 @@
 .header
+  position: relative
+  display: flex
+  align-items: center
+  justify-content: space-between
   padding: 25px 0
+  &__links
+    display: flex
+    align-items: center
+  &__main
+    width: 100%
   .logo
     position: relative
-    margin-bottom: 20px
   .search
-    max-width: 550px
-    width: 100%
+    margin-top: 20px
+
+@media only screen and (max-width: 767px)
+  .header
+    &__links
+      position: absolute
+      top: 26px
+      right: 0
 
 @media only screen and (min-width: 768px)
   .header
-    font-size: 0
-    .logo,
-    .search
-      display: inline-block
-      vertical-align: top
-    .logo
-      width: 70px
-      margin: 5px -70px 0 0
-    .search
-      padding-left: 100px
+    &__main
+      font-size: 0
+      .logo,
+      .search
+        display: inline-block
+        vertical-align: top
+      .logo
+        width: 70px
+        margin: 5px -70px 0 0
+      .search
+        max-width: 550px
+        width: 100%
+        padding-left: 100px
