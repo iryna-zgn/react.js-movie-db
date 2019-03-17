@@ -13,13 +13,23 @@ class SearchForm extends Component {
         super(props)
 
         this.state = {
-            isFocus: false
+            isFocus: false,
+            value: ''
         }
     }
 
-    handleChange = e => this.props.search(e.target.value)
+    handleChange = e => {
+        this.setState({
+            value: e.target.value
+        })
+    }
 
-    handleSubmit = e => e.preventDefault()
+    handleSubmit = e => {
+        const { value } = this.state
+
+        e.preventDefault()
+        if (value) this.props.search(value)
+    }
 
     addFocus = () => {
         this.setState({
@@ -53,8 +63,6 @@ class SearchForm extends Component {
     // }
 
     render() {
-        const { query } = this.props
-
         let classNameInput = 'search__field'
         if (this.state.isFocus) classNameInput += ` ${classes.IS_FOCUS}`
 
@@ -66,7 +74,7 @@ class SearchForm extends Component {
                     <div
                         className={ classNameInput }>
                         <input
-                            value={ query }
+                            value={ this.state.value }
                             type='text'
                             onChange={ this.handleChange }
                             onFocus={ this.addFocus }

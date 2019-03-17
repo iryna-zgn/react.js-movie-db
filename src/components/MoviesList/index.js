@@ -14,7 +14,8 @@ class MoviesList extends Component {
         pages: PropTypes.number.isRequired,
         page: PropTypes.number.isRequired,
         loadNextPage: PropTypes.func.isRequired,
-        loadingMore: PropTypes.bool
+        loadingMore: PropTypes.bool,
+        mode: PropTypes.string
     }
 
     render() {
@@ -74,7 +75,9 @@ class MoviesList extends Component {
     }
 
     handleClickMore = () => {
-        this.props.loadNextPage(this.props.page + 1)
+        const { page, mode, query } = this.props
+
+        this.props.loadNextPage(page + 1, mode, query)
     }
 }
 
@@ -83,7 +86,9 @@ export default connect(state => ({
     pages: state.movies.total_pages,
     page: state.movies.page,
     loadingMore: state.movies.loadingMore,
-    genres: state.genres.genres
+    genres: state.genres.genres,
+    mode: state.movies.mode,
+    query: state.movies.query
 }), {
     loadNextPage
 })(MoviesList)

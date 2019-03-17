@@ -1,17 +1,20 @@
 import { actions } from './../constants'
-import { URL_POPULAR, URL_GENRES } from './../paths'
+import { URL_POPULAR, URL_GENRES, URL_SEARCH } from './../paths'
+import { modes } from './../constants'
 
-export function search(query) {
+export function loadMovies(page = 1) {
     return {
-        type: actions.SEARCH,
-        payload: { query }
+        type: actions.LOAD_MOVIES,
+        payload: { page },
+        callAPI: `${URL_POPULAR}&page=${page}`
     }
 }
 
-export function loadMovies() {
+export function search(query = '') {
     return {
-        type: actions.LOAD_MOVIES,
-        callAPI: URL_POPULAR
+        type: actions.SEARCH,
+        payload: { query },
+        callAPI: `${URL_SEARCH}&query=${query}`
     }
 }
 
@@ -22,10 +25,12 @@ export function loadGenres() {
     }
 }
 
-export function loadNextPage(page) {
+export function loadNextPage(page = 1, mode = modes.POPULAR, query = '') {
     return {
         type: actions.LOAD_NEXT_PAGE,
-        payload: { page },
-        callAPI: `${URL_POPULAR}&page=${page}`
+        payload: { page, mode, query },
+        callAPI: mode === modes.POPULAR
+            ? `${URL_POPULAR}&page=${page}`
+            : `${URL_SEARCH}&query=${query}&page=${page}`
     }
 }
