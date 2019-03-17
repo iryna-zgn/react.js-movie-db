@@ -1,10 +1,14 @@
 .movies-list
   padding-top: 70px
   &__item
-    &:not(:last-child)
-      margin-bottom: 50px
+    margin-bottom: 50px
 
-.more-link
-  margin: 15px 0
-  font-size: 16px
-  +line-hover
+.more-load
+  position: relative
+  min-height: 17px
+  &__link
+    font-size: 16px
+    +line-hover
+  &__preloader
+    position: absolute
+    bottom: 0

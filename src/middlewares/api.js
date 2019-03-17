@@ -14,5 +14,5 @@ export default store => next => action => {
             .then(response => response.json())
             .then(response => next({...rest, type: type + actions.SUCCESS, response}))
             .catch(err => next({...rest, type: type + actions.ERR, err}))
-    }, 1000)
+    }, 700)
 }

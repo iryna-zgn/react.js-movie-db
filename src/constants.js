@@ -6,7 +6,8 @@ export const modes = {
 export const classes = {
     IS_FOCUS: 'is-focus',
     IS_FIXED: 'is-fixed',
-    IS_OPEN: 'is-open'
+    IS_OPEN: 'is-open',
+    IS_SMALL: 'is-small'
 }
 
 export const actions = {

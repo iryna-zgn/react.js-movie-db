@@ -1,7 +1,7 @@
 import { actions } from './../constants'
 // eslint-disable-next-line
 import { Map, Record } from 'immutable'
-// import { objToMap } from './../helpers'
+import { objToMap } from './../helpers'
 
 const ReducerState = Record({
     results: [],
@@ -9,12 +9,13 @@ const ReducerState = Record({
     page: 1,
     total_results: 0,
     loading: false,
+    loadingMore: false,
     // isLoaded: false,
     query: ''
 })
 
 export default (state = new ReducerState(), action) => {
-    const { type, payload, response, err } = action
+    const { type, payload, response } = action
 
     switch (type) {
         case actions.SEARCH:
@@ -24,22 +25,17 @@ export default (state = new ReducerState(), action) => {
             return state.set('loading', true)
 
         case actions.LOAD_MOVIES + actions.SUCCESS:
-            // objToMap(response, ReducerState)
-            return state
-                    .set('results', response.results)
-                    .set('total_pages', response.total_pages)
-                    .set('page', response.page)
-                    .set('total_results', response.total_results)
+            return objToMap(response, ReducerState)
                     .set('loading', false)
 
-        case actions.LOAD_MOVIES + actions.ERR:
-            console.log('---', err)
-            return state
+        case actions.LOAD_NEXT_PAGE + actions.START:
+            return state.set('loadingMore', true)
 
-        case actions.LOAD_NEXT_PAGE:
+        case actions.LOAD_NEXT_PAGE + actions.SUCCESS:
             return state
                     .set('page', payload.page)
-                    .set('results', [...state.results, ...payload.results])
+                    .set('results', [...state.results, ...response.results])
+                    .set('loadingMore', false)
 
         default:
             return state

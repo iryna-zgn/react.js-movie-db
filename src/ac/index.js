@@ -22,12 +22,10 @@ export function loadGenres() {
     }
 }
 
-export function loadNextPage({ page, results }) {
+export function loadNextPage(page) {
     return {
         type: actions.LOAD_NEXT_PAGE,
-        payload: {
-            page,
-            results
-        }
+        payload: { page },
+        callAPI: `${URL_POPULAR}&page=${page}`
     }
 }

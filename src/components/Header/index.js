@@ -5,7 +5,9 @@ import Logo from './../Logo'
 export default function header() {
     return (
         <header className='header'>
-            <Logo/>
+            <Logo
+                text='movies'
+                link='/'/>
             <SearchForm/>
         </header>
     )
