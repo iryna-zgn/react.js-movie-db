@@ -20,19 +20,19 @@ self.__precacheManifest = [
     "url": "/react.js-movie-db/static/js/runtime~main.36e52f1e.js"
   },
   {
-    "revision": "a8832670d5f07fabdde8",
-    "url": "/react.js-movie-db/static/js/main.5c89119c.chunk.js"
+    "revision": "65b26da51bbc9a62dff0",
+    "url": "/react.js-movie-db/static/js/main.c255d609.chunk.js"
   },
   {
     "revision": "92a152998d14d275ec55",
     "url": "/react.js-movie-db/static/js/2.481dfa42.chunk.js"
   },
   {
-    "revision": "a8832670d5f07fabdde8",
-    "url": "/react.js-movie-db/static/css/main.1a610ec2.chunk.css"
+    "revision": "65b26da51bbc9a62dff0",
+    "url": "/react.js-movie-db/static/css/main.d4934464.chunk.css"
   },
   {
-    "revision": "2d0b42f283e2e60be0a317da2dec349e",
+    "revision": "c3a0877be658b6beefbe9c7483d83d1d",
     "url": "/react.js-movie-db/index.html"
   }
 ];
