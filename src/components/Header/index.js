@@ -7,8 +7,7 @@ export default function header() {
         <header className='header'>
             <Logo
                 text='movies'
-                link='/'
-                noTargetBlank/>
+                link='/' />
             <SearchForm/>
         </header>
     )

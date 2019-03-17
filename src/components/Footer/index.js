@@ -11,6 +11,7 @@ export default function footer() {
                     link='https://rho-blog.github.io/rho/'
                     text='blog'
                     isSmall
+                    isTargetBlank
                     title='rho blog'/>
             </div>
             <div className='footer__copyright'>

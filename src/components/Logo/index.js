@@ -10,7 +10,7 @@ export default function logo(props) {
           <a
               href={ props.link || '#'}
               title={ props.title }
-              target={ props.noTargetBlank || '_blank' }
+              target={ props.isTargetBlank ? '_blank' :  '_self'}
               className='logo__link'
               rel='noopener noreferrer'>
               <span className='logo__main'>rho</span>
