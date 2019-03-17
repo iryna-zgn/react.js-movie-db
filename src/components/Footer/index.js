@@ -1,6 +1,7 @@
 import React from 'react'
 import Logo from './../../components/Logo'
 import SocLinks from './../../components/SocLinks'
+import { RHO_BLOG } from './../../paths'
 
 export default function footer() {
     return (
@@ -8,7 +9,7 @@ export default function footer() {
             <div className='footer__inline'>
                 <SocLinks/>
                 <Logo
-                    link='https://rho-blog.github.io/rho/'
+                    link={ RHO_BLOG }
                     text='blog'
                     isSmall
                     isTargetBlank

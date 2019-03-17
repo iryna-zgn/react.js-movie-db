@@ -1,25 +1,8 @@
 import React from 'react'
-
-const items = [
-    {
-      name: 'github',
-      url: 'https://github.com/iryna-zgn',
-      isActive: true
-    },
-    {
-      name: 'instagram',
-      url: 'https://www.instagram.com/dmytruk.i/',
-      isActive: true
-    },
-    {
-      name: 'facebook',
-      url: '#',
-      isActive: false
-    }
-]
+import { socLinks as links } from './../../paths'
 
 const renderItems = () => {
-  return items.map(item => {
+  return links.map(item => {
     if (item.isActive) {
       return <li
           key={ item.name }
