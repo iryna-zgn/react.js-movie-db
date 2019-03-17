@@ -1,34 +1,31 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { search } from './../../ac'
-import { classes } from './../../constants'
+import { loadMovies, setQuery } from './../../ac'
+import { classes, modes } from './../../constants'
 
 class SearchForm extends Component {
     static propTypes = {
-        query: PropTypes.string
+        query: PropTypes.string,
+        setQuery: PropTypes.func,
+        loadMovies: PropTypes.func
     }
 
     constructor(props) {
         super(props)
 
         this.state = {
-            isFocus: false,
-            value: ''
+            isFocus: false
         }
     }
 
-    handleChange = e => {
-        this.setState({
-            value: e.target.value
-        })
-    }
+    handleChange = e => this.props.setQuery(e.target.value)
 
     handleSubmit = e => {
-        const { value } = this.state
+        const { query } = this.props
 
         e.preventDefault()
-        if (value) this.props.search(value)
+        if (query) this.props.loadMovies(query, modes.SEARCH, query)
     }
 
     addFocus = () => {
@@ -43,24 +40,22 @@ class SearchForm extends Component {
         })
     }
 
-    // TODO  відобразити лінк на популярні відео
-    // loadPopular = () => {
-    //     this.switchMode(modes.POPULAR)
-    // }
+    loadPopular = () => {
+        this.props.loadMovies()
+    }
 
-    // TODO  відобразити повідомлення
-    // renderSearchMsg = () => {
-    //     if (!this.state.results && this.state.isLoaded) {
-    //         return <div>
-    //             <div className='u-small'>No results :(</div>
-    //             <div
-    //                 onClick={ this.loadPopular }
-    //                 className='u-link'>
-    //                 Popular movies
-    //             </div>
-    //         </div>
-    //     }
-    // }
+    renderSearchMsg = () => {
+        if (!this.props.total_results) {
+            return <div>
+                <div className='search__msg'>No results :(</div>
+                <div
+                    onClick={ this.loadPopular }
+                    className='search__link'>
+                    Popular movies
+                </div>
+            </div>
+        }
+    }
 
     render() {
         let classNameInput = 'search__field'
@@ -74,7 +69,7 @@ class SearchForm extends Component {
                     <div
                         className={ classNameInput }>
                         <input
-                            value={ this.state.value }
+                            value={ this.props.query }
                             type='text'
                             onChange={ this.handleChange }
                             onFocus={ this.addFocus }
@@ -82,12 +77,16 @@ class SearchForm extends Component {
                     </div>
                     <button className='search__btn icon-search'/>
                 </form>
-                {/*{ this.renderSearchMsg() }*/}
+                { this.renderSearchMsg() }
             </div>
         )
     }
 }
 
 export default connect(state => ({
-    query: state.movies.query
-}), { search })(SearchForm)
+    query: state.movies.query,
+    total_results: state.movies.total_results
+}), {
+    loadMovies,
+    setQuery
+})(SearchForm)

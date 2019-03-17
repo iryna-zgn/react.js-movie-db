@@ -13,7 +13,6 @@ const ReducerState = Record({
     loadingMore: false,
     mode: modes.POPULAR,
     query: ''
-    // isLoaded: false
 })
 
 export default (state = new ReducerState(), action) => {
@@ -25,7 +24,8 @@ export default (state = new ReducerState(), action) => {
 
         case actions.LOAD_MOVIES + actions.SUCCESS:
             return objToMap(response, ReducerState)
-                    .set('mode', modes.POPULAR)
+                    .set('query', payload.query)
+                    .set('mode', payload.mode)
                     .set('loading', false)
 
         case actions.LOAD_NEXT_PAGE + actions.START:
@@ -37,15 +37,8 @@ export default (state = new ReducerState(), action) => {
                     .set('results', [...state.results, ...response.results])
                     .set('loadingMore', false)
 
-        case actions.SEARCH + actions.START:
-            return state.set('loading', true)
-
-        case actions.SEARCH + actions.SUCCESS:
-            console.log(payload)
-            return objToMap(response, ReducerState)
-                    .set('query', payload.query)
-                    .set('mode', modes.SEARCH)
-                    .set('loading', false)
+        case actions.SET_QUERY:
+            return state.set('query', payload.query)
 
         default:
             return state

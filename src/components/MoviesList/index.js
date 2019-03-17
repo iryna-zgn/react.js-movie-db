@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Movie from './../Movie'
-import Preloader from './../../components/Preloader'
+import LoadMore from './../LoadMore'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { connect } from 'react-redux'
-import { loadNextPage } from './../../ac'
+import { loadMovies, loadGenres } from './../../ac'
 
 
 class MoviesList extends Component {
@@ -13,9 +13,11 @@ class MoviesList extends Component {
         genres: PropTypes.array.isRequired,
         pages: PropTypes.number.isRequired,
         page: PropTypes.number.isRequired,
-        loadNextPage: PropTypes.func.isRequired,
+        loadMovies: PropTypes.func.isRequired,
+        loadGenres: PropTypes.func.isRequired,
         loadingMore: PropTypes.bool,
-        mode: PropTypes.string
+        mode: PropTypes.string,
+        query: PropTypes.string
     }
 
     render() {
@@ -29,6 +31,11 @@ class MoviesList extends Component {
                 { this.renderLoadMore() }
             </div>
         )
+    }
+
+    componentDidMount() {
+        this.props.loadMovies()
+        this.props.loadGenres()
     }
 
     renderItems = () => {
@@ -54,41 +61,21 @@ class MoviesList extends Component {
     }
 
     renderLoadMore = () => {
-        const { pages, page, loadingMore } = this.props
+        const { pages, page } = this.props
 
-        if (pages > 1 && page !== pages ) {
-            return <div className='more-load u-center'>
-                {
-                    loadingMore
-                        ? <div
-                            className='more-load__preloader'>
-                            <Preloader />
-                        </div>
-                        : <div
-                            onClick={ this.handleClickMore }
-                            className='more-load__link'>
-                            Load more
-                        </div>
-                }
-            </div>
-        }
-    }
-
-    handleClickMore = () => {
-        const { page, mode, query } = this.props
-
-        this.props.loadNextPage(page + 1, mode, query)
+        if (pages > 1 && page !== pages ) return <LoadMore/>
     }
 }
 
 export default connect(state => ({
     movies: state.movies.results,
+    genres: state.genres.genres,
     pages: state.movies.total_pages,
     page: state.movies.page,
     loadingMore: state.movies.loadingMore,
-    genres: state.genres.genres,
     mode: state.movies.mode,
     query: state.movies.query
 }), {
-    loadNextPage
+    loadMovies,
+    loadGenres
 })(MoviesList)

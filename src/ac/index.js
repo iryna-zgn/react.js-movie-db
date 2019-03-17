@@ -2,19 +2,25 @@ import { actions } from './../constants'
 import { URL_POPULAR, URL_GENRES, URL_SEARCH } from './../paths'
 import { modes } from './../constants'
 
-export function loadMovies(page = 1) {
+function getUrl(page, mode, query) {
+    return mode === modes.POPULAR
+        ? `${URL_POPULAR}&page=${page}`
+        : `${URL_SEARCH}&query=${query}&page=${page}`
+}
+
+export function loadMovies(page = 1, mode = modes.POPULAR, query = '') {
     return {
         type: actions.LOAD_MOVIES,
-        payload: { page },
-        callAPI: `${URL_POPULAR}&page=${page}`
+        payload: { page, mode, query },
+        callAPI: getUrl(page, mode, query)
     }
 }
 
-export function search(query = '') {
+export function loadNextPage(page = 1, mode = modes.POPULAR, query = '') {
     return {
-        type: actions.SEARCH,
-        payload: { query },
-        callAPI: `${URL_SEARCH}&query=${query}`
+        type: actions.LOAD_NEXT_PAGE,
+        payload: { page, mode, query },
+        callAPI: getUrl(page, mode, query)
     }
 }
 
@@ -25,12 +31,9 @@ export function loadGenres() {
     }
 }
 
-export function loadNextPage(page = 1, mode = modes.POPULAR, query = '') {
+export function setQuery(query) {
     return {
-        type: actions.LOAD_NEXT_PAGE,
-        payload: { page, mode, query },
-        callAPI: mode === modes.POPULAR
-            ? `${URL_POPULAR}&page=${page}`
-            : `${URL_SEARCH}&query=${query}&page=${page}`
+        type: actions.SET_QUERY,
+        payload: { query }
     }
 }
