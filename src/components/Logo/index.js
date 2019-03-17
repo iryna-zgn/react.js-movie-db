@@ -10,8 +10,8 @@ export default function logo(props) {
           <a
               href={ props.link || '#'}
               title={ props.title }
+              target={ props.noTargetBlank || '_blank' }
               className='logo__link'
-              target='_blank'
               rel='noopener noreferrer'>
               <span className='logo__main'>rho</span>
               <span className='logo__text'>{ props.text }</span>
