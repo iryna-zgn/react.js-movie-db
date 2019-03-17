@@ -1,5 +1,5 @@
 import { actions } from './../constants'
-import { urlPopular, urlGenreList } from './../paths'
+import { URL_POPULAR, URL_GENRES } from './../paths'
 
 export function search(query) {
     return {
@@ -11,19 +11,23 @@ export function search(query) {
 export function loadMovies() {
     return {
         type: actions.LOAD_MOVIES,
-        callAPI: urlPopular
+        callAPI: URL_POPULAR
     }
 }
 
 export function loadGenres() {
     return {
         type: actions.LOAD_GENRES,
-        callAPI: urlGenreList
+        callAPI: URL_GENRES
     }
 }
 
-export function loadNextPage() {
+export function loadNextPage({ page, results }) {
     return {
-        type: actions.LOAD_NEXT_PAGE
+        type: actions.LOAD_NEXT_PAGE,
+        payload: {
+            page,
+            results
+        }
     }
 }

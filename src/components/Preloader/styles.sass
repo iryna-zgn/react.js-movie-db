@@ -1,19 +1,33 @@
 .preloader
-  position: relative
   display: inline-block
-  height: 50px
-  width: 15px
-  &:before
-    content: ''
-    position: absolute
-    display: block
+  text-align: center
+  &.is-fixed
+    position: fixed
     top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    display: flex
+    justify-content: center
+    align-items: center
+    background-color: #ffffff
+    z-index: 1
+  &__inner
+    position: relative
+    display: inline-block
+    height: 50px
     width: 15px
-    height: 15px
-    border-radius: 50%
-    background-color: $color-accent
-    transform-origin: 50%
-    animation: bounce .5s alternate infinite ease
+    &:before
+      content: ''
+      position: absolute
+      display: block
+      top: 0
+      width: 15px
+      height: 15px
+      border-radius: 50%
+      background-color: $color-accent
+      transform-origin: 50%
+      animation: bounce .5s alternate infinite ease
 
 @keyframes bounce
   0%

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { urlImg } from '../../paths'
+import { URL_IMG } from '../../paths'
 
 export default class Movie extends Component {
     static propTypes = {
@@ -37,21 +37,21 @@ export default class Movie extends Component {
 
     getYear = date => date.slice(0, 4)
 
-    getImg = img => img ? `${urlImg}${img}` : 'static/images/rho_light.jpg'
+    getImg = img => img ? `${URL_IMG}${img}` : 'static/images/rho_light.jpg'
 
     getGenres = ids => {
         const { genres } = this.props
-        const currentGenres = []
+        const currentGenres = new Set()
 
         ids.forEach(id => {
             genres.forEach(genre => {
                 if (genre.id === id) {
-                    currentGenres.push(genre)
+                    currentGenres.add(genre)
                 }
             })
         })
 
-        return currentGenres
+        return [...currentGenres]
     }
 
     renderGenres = ids => {

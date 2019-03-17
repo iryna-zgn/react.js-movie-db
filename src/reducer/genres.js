@@ -11,7 +11,7 @@ export default (state = new GenreRecord(), action) => {
     const { type, response } = action
 
     switch (type) {
-        case actions.LOAD_GENRES:
+        case actions.LOAD_GENRES + actions.SUCCESS:
             return objToMap(response, GenreRecord)
 
         default:

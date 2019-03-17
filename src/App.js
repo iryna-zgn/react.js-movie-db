@@ -1,15 +1,21 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Header from './components/Header'
 import MoviesList from './components/MoviesList'
 import Footer from './components/Footer'
+import Preloader from './components/Preloader'
 import { connect } from 'react-redux'
 import { loadMovies, loadGenres } from './ac'
-// import Preloader from './components/Preloader'
-// import PropTypes from 'prop-types'
-// import { urlPopular, urlSearch, urlGenreList } from './paths'
+// import { URL_POPULAR, URL_SEARCH, URL_GENRES } from './paths'
 // import { modes } from './constants'
 
 class App extends Component {
+    static propTypes = {
+        loadMovies: PropTypes.func.isRequired,
+        loadGenres: PropTypes.func.isRequired,
+        loading: PropTypes.bool
+    }
+
     // static propTypes = {
     //     query: PropTypes.string,
     //     mode: PropTypes.string
@@ -24,15 +30,15 @@ class App extends Component {
     //         results: 0,
     //         pages: 1,
     //         page: 1,
-    //         isPreloader: false,
+    //         loading: false,
     //         isLoaded: false
     //     }
     // }
 
     // getLoadUrl = () => {
     //     return this.props.mode === modes.POPULAR
-    //         ? `${urlPopular}&page=${this.state.page}`
-    //         : `${urlSearch}&query=${this.props.query}&page=${this.state.page}`
+    //         ? `${URL_POPULAR}&page=${this.state.page}`
+    //         : `${URL_SEARCH}&query=${this.props.query}&page=${this.state.page}`
     // }
 
     // fetchMovies = () => {
@@ -45,12 +51,12 @@ class App extends Component {
     //             isLoaded: true
     //         })))
     //         .then(() => this.setState({
-    //             isPreloader: false
+    //             loading: false
     //         }))
     // }
 
     // fetchGenres = () => {
-    //     fetch(urlGenreList)
+    //     fetch(URL_GENRES)
     //         .then(response => response.json())
     //         .then(data => this.setState({
     //             genres: data.genres
@@ -60,7 +66,7 @@ class App extends Component {
     // loadNextPage = () => {
     //     this.setState(state => ({
     //         page: state.page + 1,
-    //         isPreloader: true
+    //         loading: true
     //     }), () => this.fetchMovies())
     // }
 
@@ -68,7 +74,7 @@ class App extends Component {
     //     if (this.state.pages > 1 && this.state.page !== this.state.pages) {
     //         return <div className='u-center'>
     //             {
-    //                 this.state.isPreloader
+    //                 this.state.loading
     //                     ? <Preloader />
     //                     : <div
     //                         className='more-link'
@@ -82,12 +88,13 @@ class App extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div className='container'>
                 <div>
                     <Header/>
                     <MoviesList/>
                 </div>
                 <Footer/>
+                { this.renderPreloader() }
             </div>
         )
     }
@@ -96,9 +103,15 @@ class App extends Component {
         this.props.loadMovies()
         this.props.loadGenres()
     }
+
+    renderPreloader = () => {
+        if (this.props.loading) return <Preloader isFixed/>
+    }
 }
 
-export default connect(null, {
+export default connect(state => ({
+    loading: state.movies.loading
+}), {
     loadMovies,
     loadGenres
 })(App)
