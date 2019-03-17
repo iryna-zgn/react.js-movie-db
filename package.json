@@ -2,8 +2,9 @@
   "name": "rho-movies",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "https://iryna-zgn.github.io/react.js-movie-db",
+  "homepage": "https://iryna-zgn.github.io/react.js-movie-db",
   "dependencies": {
+    "gh-pages": "^2.0.1",
     "immutable": "^4.0.0-rc.12",
     "node-sass": "^4.11.0",
     "prop-types": "^15.7.2",
@@ -21,7 +22,6 @@
     "eject": "react-scripts eject",
     "predeploy": "yarn build",
     "deploy": "gh-pages -d build"
-
   },
   "eslintConfig": {
     "extends": "react-app"
