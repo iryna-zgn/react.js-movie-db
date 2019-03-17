@@ -7,25 +7,22 @@ import { classes, modes } from './../../constants'
 class SearchForm extends Component {
     static propTypes = {
         query: PropTypes.string,
+        lastQuery: PropTypes.string,
         setQuery: PropTypes.func,
         loadMovies: PropTypes.func
     }
 
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            isFocus: false
-        }
+    state = {
+        isFocus: false
     }
 
     handleChange = e => this.props.setQuery(e.target.value)
 
     handleSubmit = e => {
-        const { query } = this.props
+        const { query, lastQuery } = this.props
 
         e.preventDefault()
-        if (query) this.props.loadMovies(query, modes.SEARCH, query)
+        if (query && query !== lastQuery) this.props.loadMovies(1, modes.SEARCH, query)
     }
 
     addFocus = () => {
@@ -85,6 +82,7 @@ class SearchForm extends Component {
 
 export default connect(state => ({
     query: state.movies.query,
+    lastQuery: state.movies.lastQuery,
     total_results: state.movies.total_results
 }), {
     loadMovies,

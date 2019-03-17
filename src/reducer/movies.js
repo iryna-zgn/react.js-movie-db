@@ -12,7 +12,8 @@ const ReducerState = Record({
     loading: false,
     loadingMore: false,
     mode: modes.POPULAR,
-    query: ''
+    query: '',
+    lastQuery: ''
 })
 
 export default (state = new ReducerState(), action) => {
@@ -25,6 +26,7 @@ export default (state = new ReducerState(), action) => {
         case actions.LOAD_MOVIES + actions.SUCCESS:
             return objToMap(response, ReducerState)
                     .set('query', payload.query)
+                    .set('lastQuery', payload.query)
                     .set('mode', payload.mode)
                     .set('loading', false)
 
