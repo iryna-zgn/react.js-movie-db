@@ -40,7 +40,11 @@ export default class Movie extends Component {
                     <Stars
                         evaluation={ movie.vote_average }
                         count={ movie.vote_count }/>
-                    <div className='movie__desc'>{ movie.overview }</div>
+                    <div
+                        className='movie__desc'
+                        style={{ WebkitBoxOrient: 'vertical' }}>
+                        { movie.overview }
+                    </div>
                     <Link to={`/movie-${movie.id}`}
                           className='movie__link'>
                         Read more
