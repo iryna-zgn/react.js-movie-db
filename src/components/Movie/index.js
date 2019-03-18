@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Stars from './../../components/Stars'
 import { URL_IMG } from '../../paths'
 
 export default class Movie extends Component {
@@ -20,6 +21,7 @@ export default class Movie extends Component {
         return (
             <div className='movie'>
                 <div
+                    onClick={ this.getId }
                     className='movie__img'
                     style={{ backgroundImage: `url(${this.getImg(movie.poster_path)})` }}>
                     <img src='static/images/dummy_420x630.jpg' alt='' className='u-dummy'/>
@@ -28,6 +30,12 @@ export default class Movie extends Component {
                     <h2 className='movie__title'>{ movie.title }</h2>
                     <div className='movie__prop'>{ this.renderGenres(movie.genre_ids) }</div>
                     <div className='movie__prop'>{ this.getYear(movie.release_date) }</div>
+                    <div className='movie__evaluate'>
+                        <div className='movie__stars'>
+                            <Stars count={ this.getStarCount(movie.vote_average) }/>
+                        </div>
+                        <div>{ movie.vote_count }</div>
+                    </div>
                     <div className='movie__desc'>{ movie.overview }</div>
                     <div className='movie__link'>Read more</div>
                 </div>
@@ -53,6 +61,12 @@ export default class Movie extends Component {
 
         return [...currentGenres]
     }
+
+    getId = () => {
+        console.log(this.props.movie.id, this.props.movie.title)
+    }
+
+    getStarCount = vote => Math.round(vote / 2)
 
     renderGenres = ids => {
         return this.getGenres(ids).map((genre, index) => {
