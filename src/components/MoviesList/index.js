@@ -1,20 +1,20 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import SearchForm from './../SearchForm'
 import Movie from './../Movie'
 import LoadMore from './../LoadMore'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { connect } from 'react-redux'
-import { loadMovies, loadGenres } from './../../ac'
+import { loadMovies } from './../../ac'
 
 
 class MoviesList extends Component {
     static propTypes = {
-        movies: PropTypes.array.isRequired,
-        genres: PropTypes.array.isRequired,
-        pages: PropTypes.number.isRequired,
-        page: PropTypes.number.isRequired,
-        loadMovies: PropTypes.func.isRequired,
-        loadGenres: PropTypes.func.isRequired,
+        movies: PropTypes.array,
+        genres: PropTypes.array,
+        pages: PropTypes.number,
+        page: PropTypes.number,
+        loadMovies: PropTypes.func,
         loadingMore: PropTypes.bool,
         mode: PropTypes.string,
         query: PropTypes.string
@@ -23,6 +23,7 @@ class MoviesList extends Component {
     render() {
         return (
             <div>
+                <SearchForm/>
                 <div className='movies-list'>
                     <TransitionGroup>
                         { this.renderItems() }
@@ -35,7 +36,6 @@ class MoviesList extends Component {
 
     componentDidMount() {
         this.props.loadMovies()
-        this.props.loadGenres()
     }
 
     renderItems = () => {
@@ -76,6 +76,5 @@ export default connect(state => ({
     mode: state.movies.mode,
     query: state.movies.query
 }), {
-    loadMovies,
-    loadGenres
+    loadMovies
 })(MoviesList)

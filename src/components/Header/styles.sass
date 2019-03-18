@@ -1,19 +1,15 @@
 .header
   position: relative
   display: flex
-  align-items: center
+  align-items: flex-start
   justify-content: space-between
-  padding: 25px 0
-  &__links
+  padding: 25px 0 50px
+  &__inline
     display: flex
     align-items: center
-  &__main
-    width: 100%
-  .logo
     margin-top: 2px
-    position: relative
-  .search
-    margin-top: 20px
+    .logo
+      margin-top: 1px
 
 @media only screen and (max-width: 767px)
   .header
@@ -21,20 +17,3 @@
       position: absolute
       top: 26px
       right: 0
-
-@media only screen and (min-width: 768px)
-  .header
-    &__main
-      font-size: 0
-      .logo,
-      .search
-        display: inline-block
-        vertical-align: top
-      .logo
-        width: 70px
-        margin: 5px -70px 0 0
-      .search
-        max-width: 550px
-        width: 100%
-        padding-left: 100px
-        margin-top: 0

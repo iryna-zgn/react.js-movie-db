@@ -1,5 +1,5 @@
 import { actions } from './../constants'
-import { URL_POPULAR, URL_GENRES, URL_SEARCH } from './../paths'
+import { URL_POPULAR, URL_GENRES, URL_SEARCH, URL_MOVIE, KEY } from './../paths'
 import { modes } from './../constants'
 
 function getUrl(mode, query, page) {
@@ -13,6 +13,13 @@ export function loadMovies(mode = modes.POPULAR, query = '', page = 1) {
         type: actions.LOAD_MOVIES,
         payload: { mode, query },
         callAPI: getUrl(mode, query, page)
+    }
+}
+
+export function loadMovie(id) {
+    return {
+        type: actions.LOAD_MOVIE,
+        callAPI: `${URL_MOVIE}${id}?api_key=${KEY}&append_to_response=images`
     }
 }
 

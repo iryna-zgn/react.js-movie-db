@@ -13,7 +13,8 @@ const ReducerState = Record({
     loadingMore: false,
     mode: modes.POPULAR,
     query: '',
-    lastQuery: ''
+    lastQuery: '',
+    movie: {}
 })
 
 export default (state = new ReducerState(), action) => {
@@ -41,6 +42,14 @@ export default (state = new ReducerState(), action) => {
 
         case actions.SET_QUERY:
             return state.set('query', payload.query)
+
+        case actions.LOAD_MOVIE + actions.START:
+            return state.set('loading', true)
+
+        case actions.LOAD_MOVIE + actions.SUCCESS:
+            return state
+                    .set('movie', response)
+                    .set('loading', false)
 
         default:
             return state

@@ -2,17 +2,21 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Stars from './../../components/Stars'
 import { URL_IMG } from '../../paths'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { loadGenres } from './../../ac'
 
-export default class Movie extends Component {
+class Movie extends Component {
     static propTypes = {
         movie: PropTypes.shape({
             poster_path: PropTypes.string,
             title: PropTypes.string,
-            genre_ids: PropTypes.array.isRequired,
-            release_date: PropTypes.string.isRequired,
-            overview: PropTypes.string
+            genre_ids: PropTypes.array,
+            release_date: PropTypes.string,
+            overview: PropTypes.string,
+            loadGenres: PropTypes.func,
         }),
-        genres: PropTypes.array.isRequired
+        genres: PropTypes.array
     }
 
     render() {
@@ -20,14 +24,16 @@ export default class Movie extends Component {
 
         return (
             <div className='movie'>
-                <div
-                    onClick={ this.getId }
+                <Link to={`/movie-${movie.id}`}
                     className='movie__img'
                     style={{ backgroundImage: `url(${this.getImg(movie.poster_path)})` }}>
                     <img src='static/images/dummy_420x630.jpg' alt='' className='u-dummy'/>
-                </div>
+                </Link>
                 <div>
-                    <h2 className='movie__title'>{ movie.title }</h2>
+                    <Link to={`/movie-${movie.id}`}
+                          className='movie__title t2'>
+                        { movie.title }
+                    </Link>
                     <div className='movie__prop'>{ this.renderGenres(movie.genre_ids) }</div>
                     <div className='movie__prop'>{ this.getYear(movie.release_date) }</div>
                     <div className='movie__evaluate'>
@@ -37,10 +43,17 @@ export default class Movie extends Component {
                         <div>{ movie.vote_count }</div>
                     </div>
                     <div className='movie__desc'>{ movie.overview }</div>
-                    <div className='movie__link'>Read more</div>
+                    <Link to={`/movie-${movie.id}`}
+                          className='movie__link'>
+                        Read more
+                    </Link>
                 </div>
             </div>
         )
+    }
+
+    componentDidMount() {
+        this.props.loadGenres()
     }
 
     getYear = date => date.slice(0, 4)
@@ -62,10 +75,6 @@ export default class Movie extends Component {
         return [...currentGenres]
     }
 
-    getId = () => {
-        console.log(this.props.movie.id, this.props.movie.title)
-    }
-
     getStarCount = vote => Math.round(vote / 2)
 
     renderGenres = ids => {
@@ -76,3 +85,6 @@ export default class Movie extends Component {
         })
     }
 }
+
+
+export default connect(null, { loadGenres })(Movie)
