@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Header from './components/Header'
 import MoviesList from './components/MoviesList'
-import MoviePage from './components/MoviePage'
+import MovieDetails from './components/MovieDetails'
 import Footer from './components/Footer'
 import Preloader from './components/Preloader'
 import { connect } from 'react-redux'
@@ -20,7 +20,7 @@ class App extends Component {
                     <div>
                         <Header/>
                         <Route exact path='/' component={ MoviesList }/>
-                        <Route path='/movie-:id' render={ this.getMoviePage }/>
+                        <Route path='/movie-:id' render={ this.getMovieDetails }/>
                     </div>
                     <Footer/>
                     { this.renderPreloader() }
@@ -29,9 +29,9 @@ class App extends Component {
         )
     }
 
-    getMoviePage = ({ match }) => {
+    getMovieDetails = ({ match }) => {
         const { id } = match.params
-        return <MoviePage  id={ id }/>
+        return <MovieDetails  id={ id }/>
     }
 
     renderPreloader = () => {

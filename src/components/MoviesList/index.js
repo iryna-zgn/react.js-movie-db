@@ -5,7 +5,7 @@ import Movie from './../Movie'
 import LoadMore from './../LoadMore'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { connect } from 'react-redux'
-import { loadMovies } from './../../ac'
+import { loadMovies, loadGenres } from './../../ac'
 
 
 class MoviesList extends Component {
@@ -15,6 +15,7 @@ class MoviesList extends Component {
         pages: PropTypes.number,
         page: PropTypes.number,
         loadMovies: PropTypes.func,
+        loadGenres: PropTypes.func,
         loadingMore: PropTypes.bool,
         mode: PropTypes.string,
         query: PropTypes.string
@@ -36,6 +37,7 @@ class MoviesList extends Component {
 
     componentDidMount() {
         this.props.loadMovies()
+        this.props.loadGenres()
     }
 
     renderItems = () => {
@@ -76,5 +78,6 @@ export default connect(state => ({
     mode: state.movies.mode,
     query: state.movies.query
 }), {
-    loadMovies
+    loadMovies,
+    loadGenres
 })(MoviesList)

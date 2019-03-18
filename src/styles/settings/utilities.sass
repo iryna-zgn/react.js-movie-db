@@ -2,5 +2,15 @@
   visibility: hidden
   opacity: 0
 
-.u-link
-  +line-hover
+.u-scrollbar
+  overflow-x: auto
+.u-scrollbar::-webkit-scrollbar-track
+  border-radius: 2px
+  background: rgba($color-text, .1)
+.u-scrollbar::-webkit-scrollbar
+  height: 5px
+  border-radius: 2px
+  background: rgba($color-text, .1)
+.u-scrollbar::-webkit-scrollbar-thumb
+  border-radius: 2px
+  background: rgba($color-text, .5)
