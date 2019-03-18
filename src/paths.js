@@ -5,7 +5,10 @@ export const URL_SEARCH = `${BASE}/3/search/movie?api_key=${KEY}`
 export const URL_IMG = `https://image.tmdb.org/t/p/w500/`
 export const URL_GENRES = `${BASE}/3/genre/list?api_key=${KEY}`
 
-export const RHO_BLOG  = 'https://iryna-zgn.github.io/vue.js-blog'
+export const RHO = {
+    BLOG: 'https://iryna-zgn.github.io/vue.js-blog',
+    MOVIES: 'https://iryna-zgn.github.io/react.js-movie-db'
+}
 
 export const socLinks = [
     {
