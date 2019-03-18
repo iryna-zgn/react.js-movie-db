@@ -22,7 +22,7 @@ class SearchForm extends Component {
         const { query, lastQuery } = this.props
 
         e.preventDefault()
-        if (query && query !== lastQuery) this.props.loadMovies(1, modes.SEARCH, query)
+        if (query && query !== lastQuery) this.props.loadMovies(modes.SEARCH, query)
     }
 
     addFocus = () => {

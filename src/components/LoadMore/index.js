@@ -36,7 +36,7 @@ class LoadMore extends Component {
     handleClickMore = () => {
         const { page, mode, query } = this.props
 
-        this.props.loadNextPage(page + 1, mode, query)
+        this.props.loadNextPage(mode, query, page + 1)
     }
 }
 

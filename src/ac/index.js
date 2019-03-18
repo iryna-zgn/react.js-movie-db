@@ -2,25 +2,25 @@ import { actions } from './../constants'
 import { URL_POPULAR, URL_GENRES, URL_SEARCH } from './../paths'
 import { modes } from './../constants'
 
-function getUrl(page, mode, query) {
+function getUrl(mode, query, page) {
     return mode === modes.POPULAR
         ? `${URL_POPULAR}&page=${page}`
         : `${URL_SEARCH}&query=${query}&page=${page}`
 }
 
-export function loadMovies(page = 1, mode = modes.POPULAR, query = '') {
+export function loadMovies(mode = modes.POPULAR, query = '', page = 1) {
     return {
         type: actions.LOAD_MOVIES,
-        payload: { page, mode, query },
-        callAPI: getUrl(page, mode, query)
+        payload: { mode, query },
+        callAPI: getUrl(mode, query, page)
     }
 }
 
-export function loadNextPage(page = 1, mode = modes.POPULAR, query = '') {
+export function loadNextPage(mode = modes.POPULAR, query = '', page = 1) {
     return {
         type: actions.LOAD_NEXT_PAGE,
-        payload: { page, mode, query },
-        callAPI: getUrl(page, mode, query)
+        payload: { page },
+        callAPI: getUrl(mode, query, page)
     }
 }
 
