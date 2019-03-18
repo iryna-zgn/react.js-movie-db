@@ -67,6 +67,7 @@ class SearchForm extends Component {
                         className={ classNameInput }>
                         <input
                             value={ this.props.query }
+                            placeholder='Search for a movie'
                             type='text'
                             onChange={ this.handleChange }
                             onFocus={ this.addFocus }
