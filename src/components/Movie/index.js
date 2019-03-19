@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Stars from './../../components/Stars'
 import { Link } from 'react-router-dom'
-import { getImg, formatGenres, getYear } from '../../helpers'
+import { getImg, separateByCommas, getYear } from '../../helpers'
 
 export default class Movie extends Component {
     static propTypes = {
@@ -69,5 +69,5 @@ export default class Movie extends Component {
         return [...currentGenres]
     }
 
-    renderGenres = ids => formatGenres(this.getGenres(ids))
+    renderGenres = ids => separateByCommas(this.getGenres(ids))
 }

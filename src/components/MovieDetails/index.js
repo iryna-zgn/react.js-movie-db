@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { loadMovie } from './../../ac'
-import { getImg, formatGenres, getYear } from '../../helpers'
+import { getImg, separateByCommas, getYear, formatNumber } from '../../helpers'
 import Stars from './../../components/Stars'
 
 class MovieDetails extends Component {
@@ -18,7 +18,7 @@ class MovieDetails extends Component {
         return <div className='movie-details'>
             <div className='movie-details__parts'>
                 <div className='movie-details__const'>
-                    <img src={ getImg(movie.poster_path) } alt=""/>
+                    <img src={ getImg(movie.poster_path) } alt=''/>
                 </div>
                 <div className='movie-details__var'>
                     <h1>{movie.title }</h1>
@@ -27,36 +27,11 @@ class MovieDetails extends Component {
                         count={ movie.vote_count }/>
                     <table className='movie-details__props'>
                         <tbody>
-                            <tr>
-                                <td>Genre:</td>
-                                <td>{ formatGenres(movie.genres) }</td>
-                            </tr>
-                            <tr>
-                                <td>Runtime:</td>
-                                <td>{ movie.runtime } min</td>
-                            </tr>
-                            <tr>
-                                <td>Original language:</td>
-                                <td>{ movie.original_language }</td>
-                            </tr>
-                            <tr>
-                                <td>Release year:</td>
-                                <td>{ getYear(movie.release_date) }</td>
-                            </tr>
-                            <tr>
-                                <td>Budget:</td>
-                                <td>${ movie.budget }</td>
-                            </tr>
+                            { this.renderTableRows(movie) }
                         </tbody>
                     </table>
                     <p>{ movie.overview }</p>
-                    <a
-                        href={ movie.homepage }
-                        className='movie-details__link'
-                        target='_blank'
-                        rel='noopener noreferrer'>
-                        homepage
-                    </a>
+                    { this.renderHomeLink(movie.homepage) }
                 </div>
             </div>
             <div className='movie-details__gallery u-scrollbar-x'>
@@ -74,6 +49,53 @@ class MovieDetails extends Component {
             return images.backdrops.map(el => {
                 return <img key={el.file_path} src={ getImg(el.file_path) } alt=''/>
             })
+        }
+    }
+
+    renderTableRows = (movie) => {
+        const data = [
+            {
+                key: 'Genre:',
+                val: separateByCommas(movie.genres)
+            },
+            {
+                key: 'Runtime:',
+                val: `${movie.runtime} min`
+            },
+            {
+                key: 'Original language:',
+                val: movie.original_language
+            },
+            {
+                key: 'Release year:',
+                val: getYear(movie.release_date)
+            },
+            {
+                key: 'Budget:',
+                val: formatNumber(movie.budget, '$')
+            },
+        ]
+
+        return data.map(el => {
+            if (el.val) {
+                return <tr>
+                    <td>{ el.key }</td>
+                    <td>{ el.val }</td>
+                </tr>
+            }
+        })
+
+    }
+
+    renderHomeLink = (url) => {
+        if (url) {
+            return <a
+                href={ url }
+                className='movie-details__link'
+                target='_blank'
+                rel='noopener noreferrer'>
+                homepage
+            </a>
         }
     }
 }
