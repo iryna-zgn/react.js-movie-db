@@ -45,11 +45,10 @@ class MovieDetails extends Component {
     }
 
     renderImages = images => {
-        if (images) {
-            return images.backdrops.map(el => {
-                return <img key={el.file_path} src={ getImg(el.file_path) } alt=''/>
-            })
-        }
+        if (!images) return null
+        return images.backdrops.map(el => {
+            return <img key={el.file_path} src={ getImg(el.file_path) } alt=''/>
+        })
     }
 
     renderTableRows = (movie) => {
@@ -76,27 +75,25 @@ class MovieDetails extends Component {
             },
         ]
 
-        return data.map(el => {
-            if (el.val) {
-                return <tr>
-                    <td>{ el.key }</td>
-                    <td>{ el.val }</td>
-                </tr>
-            }
+        return data.map((el, index) => {
+            if (!el.val) return null
+            return <tr key={ el.key + index }>
+                <td>{ el.key }</td>
+                <td>{ el.val }</td>
+            </tr>
         })
 
     }
 
     renderHomeLink = (url) => {
-        if (url) {
-            return <a
-                href={ url }
-                className='movie-details__link'
-                target='_blank'
-                rel='noopener noreferrer'>
-                homepage
-            </a>
-        }
+        if (!url) return null
+        return <a
+            href={ url }
+            className='movie-details__link'
+            target='_blank'
+            rel='noopener noreferrer'>
+            homepage
+        </a>
     }
 }
 

@@ -1,6 +1,6 @@
 # Rho-movies 
 
-This is a project based on TMDB RESTful API.
+This project is based on TMDB RESTful API.
 
 ## Project setup
 ### `npm install`
