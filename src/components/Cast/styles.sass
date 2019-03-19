@@ -1,0 +1,38 @@
+
+.cast
+  margin-top: 80px
+  &__list
+    font-size: 0
+    margin: 0 -5px
+  &__item
+    display: inline-block
+    vertical-align: top
+    margin-bottom: 30px
+    padding: 0 5px
+    width: 50%
+  &__desc
+    margin-top: 5px
+    color: rgba($color-text, .8)
+    font-size: 16px
+    line-height: 1.2
+  img
+    margin-bottom: 7px
+
+@media only screen and (min-width: 400px)
+  .cast
+    &__item
+      width: 33.33333%
+
+@media only screen and (min-width: 768px)
+  .cast
+    &__item
+      width: 16.666667%
+
+@media only screen and (min-width: 1210px)
+  .cast
+    &__list
+      margin: 0 -10px
+    &__item
+      padding: 0 10px
+    img
+      margin-bottom: 12px

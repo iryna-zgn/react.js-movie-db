@@ -12,6 +12,7 @@ export const classes = {
 export const actions = {
     LOAD_MOVIES: 'LOAD_MOVIES',
     LOAD_MOVIE: 'LOAD_MOVIE',
+    LOAD_CREDITS: 'LOAD_CREDITS',
     LOAD_GENRES: 'LOAD_GENRES',
     LOAD_NEXT_PAGE: 'LOAD_NEXT_PAGE',
     SET_QUERY: 'SET_QUERY',

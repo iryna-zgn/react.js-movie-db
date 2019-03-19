@@ -1,54 +1,48 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { loadMovie } from './../../ac'
+import { loadMovie, loadCredits } from './../../ac'
 import { getImg, separateByCommas, getYear, formatNumber } from '../../helpers'
 import Stars from './../../components/Stars'
+import Cast from './../../components/Cast'
+import Backdrops from './../../components/Backdrops'
 
 class MovieDetails extends Component {
     static propTypes = {
-        id: PropTypes.string.isRequired,
-        loadMovie: PropTypes.func.isRequired,
+        id: PropTypes.string,
+        loadMovie: PropTypes.func,
+        loadCredits: PropTypes.func,
         movie: PropTypes.object
     }
 
     render() {
-        const { movie } = this.props
+        const { movie, credits } = this.props
 
         return <div className='movie-details'>
-            <div className='movie-details__parts'>
-                <div className='movie-details__const'>
-                    <img src={ getImg(movie.poster_path) } alt=''/>
+                    <div className='movie-details__const'>
+                        <img src={ getImg(movie.poster_path) } alt=''/>
+                    </div>
+                    <div className='movie-details__var'>
+                        <h1>{movie.title }</h1>
+                        <Stars
+                            evaluation={ movie.vote_average }
+                            count={ movie.vote_count }/>
+                        <table className='movie-details__props'>
+                            <tbody>
+                                { this.renderTableRows(movie) }
+                            </tbody>
+                        </table>
+                        <p>{ movie.overview }</p>
+                        { this.renderHomeLink(movie.homepage) }
+                    </div>
+                    <Cast cast={ credits.cast }/>
+                    <Backdrops images={ movie.images }/>
                 </div>
-                <div className='movie-details__var'>
-                    <h1>{movie.title }</h1>
-                    <Stars
-                        evaluation={ movie.vote_average }
-                        count={ movie.vote_count }/>
-                    <table className='movie-details__props'>
-                        <tbody>
-                            { this.renderTableRows(movie) }
-                        </tbody>
-                    </table>
-                    <p>{ movie.overview }</p>
-                    { this.renderHomeLink(movie.homepage) }
-                </div>
-            </div>
-            <div className='movie-details__gallery u-scrollbar-x'>
-                { this.renderImages(movie.images) }
-            </div>
-        </div>
     }
 
     componentDidMount() {
         this.props.loadMovie(this.props.id)
-    }
-
-    renderImages = images => {
-        if (!images) return null
-        return images.backdrops.map(el => {
-            return <img key={el.file_path} src={ getImg(el.file_path) } alt=''/>
-        })
+        this.props.loadCredits(this.props.id)
     }
 
     renderTableRows = (movie) => {
@@ -77,6 +71,7 @@ class MovieDetails extends Component {
 
         return data.map((el, index) => {
             if (!el.val) return null
+
             return <tr key={ el.key + index }>
                 <td>{ el.key }</td>
                 <td>{ el.val }</td>
@@ -87,6 +82,7 @@ class MovieDetails extends Component {
 
     renderHomeLink = (url) => {
         if (!url) return null
+
         return <a
             href={ url }
             className='movie-details__link'
@@ -98,5 +94,9 @@ class MovieDetails extends Component {
 }
 
 export default connect(state => ({
-    movie: state.movies.movie
-}), { loadMovie })(MovieDetails)
+    movie: state.movies.movie,
+    credits: state.movies.credits
+}), {
+    loadMovie,
+    loadCredits
+})(MovieDetails)

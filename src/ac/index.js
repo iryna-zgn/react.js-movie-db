@@ -23,6 +23,13 @@ export function loadMovie(id) {
     }
 }
 
+export function loadCredits(id) {
+    return {
+        type: actions.LOAD_CREDITS,
+        callAPI: `${URL_MOVIE}${id}/credits?api_key=${KEY}`
+    }
+}
+
 export function loadNextPage(mode = modes.POPULAR, query = '', page = 1) {
     return {
         type: actions.LOAD_NEXT_PAGE,

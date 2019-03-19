@@ -1,9 +1,10 @@
 .movie-details
-  &__parts
-    display: flex
-    flex-direction: column-reverse
+  display: flex
+  flex-direction: column-reverse
   &__const
     margin-top: 50px
+    img
+      max-height: 350px
   &__link
     font-size: 16px
     +line-hover
@@ -19,33 +20,34 @@
         padding-left: 0
       &:last-child
         padding-right: 0
-  &__gallery
-    display: flex
-    align-items: center
-    margin-top: 70px
-    overflow-x: auto
-    img
-      display: block
-      max-width: 100%
 
-@media only screen and (min-width: 600px)
+@media only screen and (min-width: 500px)
   .movie-details
-    &__parts
-      display: block
-      font-size: 0
+    display: block
+    font-size: 0
     &__const,
     &__var
       display: inline-block
       vertical-align: top
     &__const
       position: relative
-      width: 300px
+      width: 200px
       margin-top: 0
-      margin-right: -300px
+      margin-right: -200px
+      img
+        max-height: none
     &__var
       width: 100%
       padding-top: 10px
+      padding-left: 215px
+
+@media only screen and (min-width: 768px)
+  .movie-details
+    &__const,
+    &__const
+      width: 300px
+      margin-right: -300px
+    &__var
       padding-left: 320px
     &__props
       font-size: 16px
-
