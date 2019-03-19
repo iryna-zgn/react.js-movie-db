@@ -8,7 +8,11 @@ const renderCast = cast => {
         return <div
             key={ el.cast_id }
             className='cast__item'>
-            <img src={ getImg(el.profile_path) } alt=''/>
+            <div
+                className='cast__img'
+                style={{ backgroundImage: `url(${getImg(el.profile_path)})` }}>
+                <img src='static/images/rho_light.jpg' alt='' className='u-dummy'/>
+            </div>
             <div className='t3'>{ el.name }</div>
             <div className='cast__desc'>{ el.character }</div>
         </div>

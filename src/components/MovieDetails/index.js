@@ -19,22 +19,29 @@ class MovieDetails extends Component {
         const { movie, credits } = this.props
 
         return <div className='movie-details'>
-                    <div className='movie-details__const'>
+                    <div className='movie-details__parts'>
+                        <div className='movie-details__const'>
                         <img src={ getImg(movie.poster_path) } alt=''/>
                     </div>
-                    <div className='movie-details__var'>
+                        <div className='movie-details__var'>
                         <h1>{movie.title }</h1>
                         <Stars
                             evaluation={ movie.vote_average }
                             count={ movie.vote_count }/>
                         <table className='movie-details__props'>
                             <tbody>
-                                { this.renderTableRows(movie) }
+                                { this.renderTableRows(this.getDetails(movie)) }
+                                { this.renderTableRows(this.getDataByName(movie.production_countries, 'Country')) }
+                                { this.renderTableRows(this.getDataByName(movie.production_companies, 'Production')) }
+                                { this.renderTableRows(this.getCrew(credits.crew)) }
                             </tbody>
                         </table>
-                        <p>{ movie.overview }</p>
-                        { this.renderHomeLink(movie.homepage) }
                     </div>
+                    </div>
+                    <div className='movie-details__desc'>
+                        <p>{ movie.overview }</p>
+                    </div>
+                    { this.renderHomeLink(movie.homepage) }
                     <Cast cast={ credits.cast }/>
                     <Backdrops images={ movie.images }/>
                 </div>
@@ -45,43 +52,79 @@ class MovieDetails extends Component {
         this.props.loadCredits(this.props.id)
     }
 
-    renderTableRows = (movie) => {
-        const data = [
+    getDetails = data => {
+        return data = [
             {
-                key: 'Genre:',
-                val: separateByCommas(movie.genres)
+                key: 'Genre',
+                val: separateByCommas(data.genres)
             },
             {
-                key: 'Runtime:',
-                val: `${movie.runtime} min`
+                key: 'Runtime',
+                val: `${data.runtime} min`
             },
             {
-                key: 'Original language:',
-                val: movie.original_language
+                key: 'Original language',
+                val: data.original_language
             },
             {
-                key: 'Release year:',
-                val: getYear(movie.release_date)
+                key: 'Release year',
+                val: getYear(data.release_date)
             },
             {
-                key: 'Budget:',
-                val: formatNumber(movie.budget, '$')
+                key: 'Budget',
+                val: formatNumber(data.budget, '$')
             },
         ]
 
+    }
+
+    getCrew = (data=[]) => {
+        const jobs = [
+            'Director',
+            'Producer',
+            'Screenplay',
+            'Writer',
+            'Music',
+            'Original Music Composer'
+        ]
+        const m = new Map()
+
+        jobs.forEach(job => {
+            data.forEach(el => {
+                if (el.job === job) {
+                    m.set(el.job, m.has(el.job) ? `${m.get(el.job)}, ${el.name}` : el.name)
+                }
+            })
+        })
+
+        return [...m.entries()].map(el => {
+            return {
+                key: el[0],
+                val: el[1]
+            }
+        })
+    }
+
+    getDataByName = (data=[], name='') => {
+        return [{
+            key: name,
+            val: data.reduce((acc, el, index) => acc + (index ? ', ' : '') + el.name , '')
+        }]
+    }
+
+    renderTableRows = data => {
         return data.map((el, index) => {
             if (!el.val) return null
 
             return <tr key={ el.key + index }>
-                <td>{ el.key }</td>
+                <td>{ el.key }:</td>
                 <td>{ el.val }</td>
             </tr>
         })
 
     }
 
-    renderHomeLink = (url) => {
-        if (!url) return null
+    renderHomeLink = (url='') => {
 
         return <a
             href={ url }

@@ -24,7 +24,7 @@ export default class Movie extends Component {
                 <Link to={`/movie-${movie.id}`}
                     className='movie__img'
                     style={{ backgroundImage: `url(${getImg(movie.poster_path)})` }}>
-                    <img src='static/images/dummy_420x630.jpg' alt='' className='u-dummy'/>
+                    <img src='static/images/rho_light.jpg' alt='' className='u-dummy'/>
                 </Link>
                 <div>
                     <Link to={`/movie-${movie.id}`}

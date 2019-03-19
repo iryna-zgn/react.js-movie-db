@@ -11,8 +11,11 @@ const renderBackdrops = images => {
 
 export default function Backdrops(props) {
     return (
-        <div className='backdrops u-scrollbar-x'>
-            { renderBackdrops(props.images) }
+        <div className='backdrops'>
+            <h2 className='t2'>Backdrops</h2>
+            <div className='backdrops__gallery u-scrollbar-x'>
+                { renderBackdrops(props.images) }
+            </div>
         </div>
     )
 }

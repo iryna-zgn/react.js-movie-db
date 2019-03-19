@@ -56,7 +56,6 @@ export default (state = new ReducerState(), action) => {
             return state.set('loading', true)
 
         case actions.LOAD_CREDITS + actions.SUCCESS:
-            console.log(response)
             return state
                     .set('credits', response)
                     .set('loading', false)

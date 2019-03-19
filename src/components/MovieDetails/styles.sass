@@ -1,16 +1,19 @@
 .movie-details
-  display: flex
-  flex-direction: column-reverse
+  &__parts
+    display: flex
+    flex-direction: column-reverse
   &__const
-    margin-top: 50px
     img
       max-height: 350px
   &__link
     font-size: 16px
     +line-hover
+  &__desc
+    margin: 20px 0 10px
   &__props
+    max-width: 500px
     font-size: 14px
-    line-height: 1.2
+    line-height: 1.25
     color: rgba($color-text, .7)
     margin: 20px 0
     td
@@ -18,28 +21,30 @@
       vertical-align: top
       &:first-child
         padding-left: 0
+        max-width: 150px
       &:last-child
         padding-right: 0
 
 @media only screen and (min-width: 500px)
   .movie-details
-    display: block
-    font-size: 0
+    &__parts
+      display: block
+      font-size: 0
     &__const,
     &__var
       display: inline-block
       vertical-align: top
     &__const
       position: relative
-      width: 200px
+      width: 170px
       margin-top: 0
-      margin-right: -200px
+      margin-right: -170px
       img
         max-height: none
     &__var
       width: 100%
       padding-top: 10px
-      padding-left: 215px
+      padding-left: 185px
 
 @media only screen and (min-width: 768px)
   .movie-details
