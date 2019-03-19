@@ -1,4 +1,3 @@
-import React from 'react'
 import { Map } from 'immutable'
 import { URL_IMG } from './paths'
 
@@ -11,11 +10,7 @@ export function getImg(img) {
 }
 
 export function separateByCommas(arr) {
-    if (arr) return arr.map((el, index) => {
-        return <span key={ el.id }>
-                    { (index ? `, ${el.name.toLowerCase()}` : el.name) }
-                </span>
-    })
+    if (arr) return arr.reduce((acc, el, index) => acc + (index ? ', ' : '') + el.name , '')
 }
 
 export function getYear(date){

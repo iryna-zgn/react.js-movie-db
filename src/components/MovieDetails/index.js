@@ -108,7 +108,7 @@ class MovieDetails extends Component {
     getDataByName = (data=[], name='') => {
         return [{
             key: name,
-            val: data.reduce((acc, el, index) => acc + (index ? ', ' : '') + el.name , '')
+            val: separateByCommas(data)
         }]
     }
 
@@ -117,7 +117,7 @@ class MovieDetails extends Component {
             if (!el.val) return null
 
             return <tr key={ el.key + index }>
-                <td>{ el.key }:</td>
+                <td>{ el.key }</td>
                 <td>{ el.val }</td>
             </tr>
         })
