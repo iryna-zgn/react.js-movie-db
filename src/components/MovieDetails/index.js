@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { loadMovie, loadCredits } from './../../ac'
-import { getImg, separateByCommas, getYear, formatNumber } from '../../helpers'
+import { getImg, separateByCommas, getYear, formatNumber, formatTime  } from '../../helpers'
 import Stars from './../../components/Stars'
 import Cast from './../../components/Cast'
 import Backdrops from './../../components/Backdrops'
@@ -60,7 +60,7 @@ class MovieDetails extends Component {
             },
             {
                 key: 'Runtime',
-                val: `${data.runtime} min`
+                val: formatTime(data.runtime)
             },
             {
                 key: 'Original language',

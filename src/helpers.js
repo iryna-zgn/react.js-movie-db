@@ -20,3 +20,7 @@ export function getYear(date){
 export function formatNumber(number, symbol='') {
     if (number) return symbol + number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
+
+export function formatTime(number) {
+    if (number) return `${Math.floor(number / 60)} h ${number % 60} min`
+}
