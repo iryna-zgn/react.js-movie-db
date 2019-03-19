@@ -1,7 +1,7 @@
 import React from 'react'
 import { classes } from './../../constants'
 
-export default function logo(props) {
+export default function Logo(props) {
     let className= 'logo'
     if (props.isSmall) className += ` ${classes.IS_SMALL}`
 

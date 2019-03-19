@@ -22,7 +22,7 @@ const renderItems = () => {
   })
 }
 
-export default function socLinks() {
+export default function SocLinks() {
   return (
       <ul className='soc-links'>{ renderItems() }</ul>
   )

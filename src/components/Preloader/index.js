@@ -1,7 +1,7 @@
 import React from 'react'
 import { classes } from './../../constants'
 
-export default function preloader(props) {
+export default function Preloader(props) {
   let className = 'preloader'
   if (props.isFixed) className += ` ${classes.IS_FIXED}`
 

@@ -3,7 +3,7 @@ import Logo from './../Logo'
 import SocLinks from './../../components/SocLinks'
 import { RHO } from './../../paths'
 
-export default function header() {
+export default function Header() {
     return (
         <header className='header'>
             <Logo
