@@ -59,7 +59,7 @@ class MovieDetails extends Component {
                     </a>
                 </div>
             </div>
-            <div className='movie-details__gallery u-scrollbar'>
+            <div className='movie-details__gallery u-scrollbar-x'>
                 { this.renderImages(movie.images) }
             </div>
         </div>
