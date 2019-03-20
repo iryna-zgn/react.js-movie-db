@@ -53,7 +53,7 @@ class MovieDetails extends Component {
     }
 
     getDetails = data => {
-        return data = [
+        return [
             {
                 key: 'Genre',
                 val: separateByCommas(data.genres)

@@ -6,10 +6,16 @@ import * as serviceWorker from './serviceWorker'
 // eslint-disable-next-line
 import store from './store'
 import { Provider } from 'react-redux'
+import { HashRouter as Router } from 'react-router-dom'
+import ScrollToTop from './ScrollToTop'
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <Router>
+            <ScrollToTop>
+                <App />
+            </ScrollToTop>
+        </Router>
     </Provider>,
     document.getElementById('root'))
 

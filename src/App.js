@@ -6,7 +6,7 @@ import MovieDetails from './components/MovieDetails'
 import Footer from './components/Footer'
 import Preloader from './components/Preloader'
 import { connect } from 'react-redux'
-import { HashRouter as Router, Route, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
 class App extends Component {
     static propTypes = {
@@ -15,19 +15,17 @@ class App extends Component {
 
     render() {
         return (
-            <Router>
-                <div className='container'>
-                    <div>
-                        <Header/>
-                        <Switch>
-                            <Route exact path='/' component={ MoviesList }/>
-                            <Route path='/movie-:id' render={ this.getMovieDetails }/>
-                        </Switch>
-                    </div>
-                    <Footer/>
-                    { this.renderPreloader() }
+            <div className='container'>
+                <div>
+                    <Header/>
+                    <Switch>
+                        <Route exact path='/' component={ MoviesList }/>
+                        <Route path='/movie-:id' render={ this.getMovieDetails }/>
+                    </Switch>
                 </div>
-            </Router>
+                <Footer/>
+                { this.renderPreloader() }
+            </div>
         )
     }
 
