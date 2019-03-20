@@ -10,7 +10,7 @@ class SearchForm extends Component {
         query: PropTypes.string,
         lastQuery: PropTypes.string,
         setQuery: PropTypes.func,
-        loadMovies: PropTypes.func,
+        loadMovies: PropTypes.func
         // total_results: PropTypes.number
     }
 

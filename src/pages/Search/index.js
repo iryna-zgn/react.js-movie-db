@@ -20,6 +20,12 @@ class Search extends Component{
         this.props.loadMovies(modes.SEARCH, this.props.query)
         this.props.loadGenres()
     }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.query !== this.props.query) {
+            this.props.loadMovies(modes.SEARCH, nextProps.query)
+        }
+    }
 }
 
 export default connect(null, {
