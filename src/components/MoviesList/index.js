@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import SearchForm from './../SearchForm'
 import Movie from './../Movie'
 import LoadMore from './../LoadMore'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { connect } from 'react-redux'
-import { loadMovies, loadGenres } from './../../ac'
 
 
 class MoviesList extends Component {
@@ -14,8 +12,6 @@ class MoviesList extends Component {
         genres: PropTypes.array,
         pages: PropTypes.number,
         page: PropTypes.number,
-        loadMovies: PropTypes.func,
-        loadGenres: PropTypes.func,
         loadingMore: PropTypes.bool,
         mode: PropTypes.string,
         query: PropTypes.string
@@ -24,7 +20,6 @@ class MoviesList extends Component {
     render() {
         return (
             <div>
-                <SearchForm/>
                 <div className='movies-list'>
                     <TransitionGroup>
                         { this.renderItems() }
@@ -35,26 +30,23 @@ class MoviesList extends Component {
         )
     }
 
-    componentDidMount() {
-        this.props.loadMovies()
-        this.props.loadGenres()
-    }
-
     renderItems = () => {
         const { movies, genres } = this.props
 
         return movies.map(movie => {
-            return <CSSTransition
-                key={ movie.id }
-                classNames='fade'
-                timeout={{ appear: 300, enter: 300, exit: 300 }}
-                appear>
-                <div className='movies-list__item'>
-                    <Movie
-                        movie={ movie }
-                        genres={ genres }/>
-                </div>
-            </CSSTransition>
+            return (
+                <CSSTransition
+                    key={ movie.id }
+                    classNames='fade'
+                    timeout={{ appear: 300, enter: 300, exit: 300 }}
+                    appear>
+                    <div className='movies-list__item'>
+                        <Movie
+                            movie={ movie }
+                            genres={ genres }/>
+                    </div>
+                </CSSTransition>
+            )
         })
     }
 
@@ -73,7 +65,4 @@ export default connect(state => ({
     loadingMore: state.movies.loadingMore,
     mode: state.movies.mode,
     query: state.movies.query
-}), {
-    loadMovies,
-    loadGenres
-})(MoviesList)
+}))(MoviesList)

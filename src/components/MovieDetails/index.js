@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { loadMovie, loadCredits } from './../../ac'
 import { getImg, separateByCommas, getYear, formatNumber, formatTime  } from '../../helpers'
 import Stars from './../../components/Stars'
 import Cast from './../../components/Cast'
@@ -10,8 +9,6 @@ import Backdrops from './../../components/Backdrops'
 class MovieDetails extends Component {
     static propTypes = {
         id: PropTypes.string,
-        loadMovie: PropTypes.func,
-        loadCredits: PropTypes.func,
         movie: PropTypes.object,
         credits: PropTypes.object
     }
@@ -19,38 +16,35 @@ class MovieDetails extends Component {
     render() {
         const { movie, credits } = this.props
 
-        return <div className='movie-details'>
-                    <div className='movie-details__parts'>
-                        <div className='movie-details__const'>
-                            <img src={ getImg(movie.poster_path) } alt=''/>
-                        </div>
-                        <div className='movie-details__var'>
-                            <h1>{movie.title }</h1>
-                            <Stars
-                                evaluation={ movie.vote_average }
-                                count={ movie.vote_count }/>
-                            <table className='movie-details__props'>
-                                <tbody>
-                                    { this.renderRows(this.getDetails(movie)) }
-                                    { this.renderRows(this.getDataByName(movie.production_countries, 'Country')) }
-                                    { this.renderRows(this.getDataByName(movie.production_companies, 'Production')) }
-                                    { this.renderRows(this.getCrew(credits.crew)) }
-                                </tbody>
-                            </table>
-                        </div>
+        return (
+            <div className='movie-details'>
+                <div className='movie-details__parts'>
+                    <div className='movie-details__const'>
+                        <img src={ getImg(movie.poster_path) } alt=''/>
                     </div>
-                    <div className='movie-details__desc'>
-                        <p>{ movie.overview }</p>
-                        { this.renderHomeLink(movie.homepage) }
+                    <div className='movie-details__var'>
+                        <h1>{movie.title }</h1>
+                        <Stars
+                            evaluation={ movie.vote_average }
+                            count={ movie.vote_count }/>
+                        <table className='movie-details__props'>
+                            <tbody>
+                            { this.renderRows(this.getDetails(movie)) }
+                            { this.renderRows(this.getDataByName(movie.production_countries, 'Country')) }
+                            { this.renderRows(this.getDataByName(movie.production_companies, 'Production')) }
+                            { this.renderRows(this.getCrew(credits.crew)) }
+                            </tbody>
+                        </table>
                     </div>
-                    { this.renderCast(credits.cast) }
-                    { this.renderBackdrops(movie.images) }
                 </div>
-    }
-
-    componentDidMount() {
-        this.props.loadMovie(this.props.id)
-        this.props.loadCredits(this.props.id)
+                <div className='movie-details__desc'>
+                    <p>{ movie.overview }</p>
+                    { this.renderHomeLink(movie.homepage) }
+                </div>
+                { this.renderCast(credits.cast) }
+                { this.renderBackdrops(movie.images) }
+            </div>
+        )
     }
 
     getDetails = data => {
@@ -157,7 +151,4 @@ class MovieDetails extends Component {
 export default connect(state => ({
     movie: state.movies.movie,
     credits: state.movies.credits
-}), {
-    loadMovie,
-    loadCredits
-})(MovieDetails)
+}))(MovieDetails)

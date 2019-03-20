@@ -5,17 +5,19 @@ const renderCast = cast => {
     if (!cast) return null
 
     return cast.slice(0, 6).map(el => {
-        return <div
-            key={ el.cast_id }
-            className='cast__item'>
+        return (
             <div
-                className='cast__img'
-                style={{ backgroundImage: `url(${getImg(el.profile_path)})` }}>
-                <img src='static/images/rho_light.jpg' alt='' className='u-dummy'/>
+                key={ el.cast_id }
+                className='cast__item'>
+                <div
+                    className='cast__img'
+                    style={{ backgroundImage: `url(${getImg(el.profile_path)})` }}>
+                    <img src='static/images/rho_light.jpg' alt='' className='u-dummy'/>
+                </div>
+                <div className='t4'>{ el.name }</div>
+                <div className='cast__desc'>{ el.character }</div>
             </div>
-            <div className='t4'>{ el.name }</div>
-            <div className='cast__desc'>{ el.character }</div>
-        </div>
+        )
     })
 }
 

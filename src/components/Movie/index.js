@@ -21,13 +21,13 @@ export default class Movie extends Component {
 
         return (
             <div className='movie'>
-                <Link to={`/movie-${movie.id}`}
+                <Link to={`/movie/${movie.id}`}
                     className='movie__img'
                     style={{ backgroundImage: `url(${getImg(movie.poster_path)})` }}>
                     <img src='static/images/rho_light.jpg' alt='' className='u-dummy'/>
                 </Link>
                 <div>
-                    <Link to={`/movie-${movie.id}`}
+                    <Link to={`/movie/${movie.id}`}
                           className='movie__title t2'>
                         { movie.title }
                     </Link>
@@ -45,7 +45,7 @@ export default class Movie extends Component {
                         style={{ WebkitBoxOrient: 'vertical' }}>
                         { movie.overview }
                     </div>
-                    <Link to={`/movie-${movie.id}`}
+                    <Link to={`/movie/${movie.id}`}
                           className='movie__link'>
                         Read more
                     </Link>

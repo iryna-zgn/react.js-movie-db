@@ -24,7 +24,7 @@ export const socLinks = [
     },
     {
         name: 'facebook',
-        url: 'https://www.facebook.com/ira.dmytruk',
-        isActive: true
+        url: '#',
+        isActive: false
     }
 ]

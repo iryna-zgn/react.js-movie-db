@@ -4,7 +4,9 @@
   align-items: flex-start
   justify-content: space-between
   padding: 25px 0 50px
-  &__inline
+  &__main
+    width: 100%
+  &__links
     display: flex
     align-items: center
     margin-top: 2px
@@ -13,7 +15,17 @@
 
 @media only screen and (max-width: 767px)
   .header
+    .search
+      margin-top: 20px
     &__links
       position: absolute
       top: 26px
       right: 0
+
+@media only screen and (min-width: 768px)
+  .header
+    &__main
+      display: flex
+      align-items: flex-start
+    .search
+      padding: 0 20px

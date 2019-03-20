@@ -1,15 +1,19 @@
 import React from 'react'
 import Logo from './../Logo'
+import SearchForm from './../SearchForm'
 import SocLinks from './../../components/SocLinks'
 import { RHO } from './../../paths'
 
 export default function Header() {
     return (
         <header className='header'>
-            <Logo
-                text='movies'
-                link={ RHO.MOVIES} />
-            <div className='header__inline'>
+            <div className='header__main'>
+                <Logo
+                    text='movies'
+                    link={ RHO.MOVIES} />
+                <SearchForm/>
+            </div>
+            <div className='header__links'>
                 <SocLinks/>
                 <Logo
                     link={ RHO.BLOG }

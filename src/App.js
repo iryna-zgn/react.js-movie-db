@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Header from './components/Header'
-import MoviesList from './components/MoviesList'
-import MovieDetails from './components/MovieDetails'
+import Home from './pages/Home'
+import Search from './pages/Search'
+import Movie from './pages/Movie'
 import Footer from './components/Footer'
 import Preloader from './components/Preloader'
 import { connect } from 'react-redux'
@@ -10,6 +11,7 @@ import { Route, Switch } from 'react-router-dom'
 
 class App extends Component {
     static propTypes = {
+        query: PropTypes.string,
         loading: PropTypes.bool
     }
 
@@ -19,8 +21,9 @@ class App extends Component {
                 <div>
                     <Header/>
                     <Switch>
-                        <Route exact path='/' component={ MoviesList }/>
-                        <Route path='/movie-:id' render={ this.getMovieDetails }/>
+                        <Route exact path='/' component={ Home }/>
+                        <Route path='/search/:query' render={ this.getSearch }/>
+                        <Route path='/movie/:id' render={ this.getMovie }/>
                     </Switch>
                 </div>
                 <Footer/>
@@ -29,9 +32,14 @@ class App extends Component {
         )
     }
 
-    getMovieDetails = ({ match }) => {
+    getSearch = ({ match }) => {
+        const { query } = match.params
+        return <Search query={ query }/>
+    }
+
+    getMovie = ({ match }) => {
         const { id } = match.params
-        return <MovieDetails  id={ id }/>
+        return <Movie  id={ id }/>
     }
 
     renderPreloader = () => {
@@ -40,5 +48,6 @@ class App extends Component {
 }
 
 export default connect(state => ({
+    query: state.movies.query,
     loading: state.movies.loading
 }))(App)

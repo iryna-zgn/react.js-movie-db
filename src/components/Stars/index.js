@@ -25,7 +25,9 @@ export default class Stars extends Component {
         }
 
         return stars.map((star, index) => {
-            return <div key = { index } className='evaluation__stars-item'>{ star }</div>
+            return (
+                <div key = { index } className='evaluation__stars-item'>{ star }</div>
+            )
         })
     }
 

@@ -5,7 +5,9 @@ const renderBackdrops = images => {
     if (!images) return null
 
     return images.backdrops.map(el => {
-        return <img key={el.file_path} src={ getImg(el.file_path) } alt=''/>
+        return (
+            <img key={el.file_path} src={ getImg(el.file_path) } alt=''/>
+        )
     })
 }
 

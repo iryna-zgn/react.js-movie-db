@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { loadMovies, setQuery } from './../../ac'
 import { classes, modes } from './../../constants'
+import { withRouter } from 'react-router-dom'
 
 class SearchForm extends Component {
     static propTypes = {
@@ -14,44 +15,6 @@ class SearchForm extends Component {
 
     state = {
         isFocus: false
-    }
-
-    handleChange = e => this.props.setQuery(e.target.value)
-
-    handleSubmit = e => {
-        const { query, lastQuery } = this.props
-
-        e.preventDefault()
-        if (query && query !== lastQuery) this.props.loadMovies(modes.SEARCH, query)
-    }
-
-    addFocus = () => {
-        this.setState({
-            isFocus: true
-        })
-    }
-
-    removeFocus = () => {
-        this.setState({
-            isFocus: false
-        })
-    }
-
-    loadPopular = () => {
-        this.props.loadMovies()
-    }
-
-    renderSearchMsg = () => {
-        if (!this.props.total_results) {
-            return <div>
-                <div className='search__msg'>No results :(</div>
-                <div
-                    onClick={ this.loadPopular }
-                    className='search__link'>
-                    Popular movies
-                </div>
-            </div>
-        }
     }
 
     render() {
@@ -75,17 +38,60 @@ class SearchForm extends Component {
                     </div>
                     <button className='search__btn icon-search'/>
                 </form>
-                { this.renderSearchMsg() }
+                {/*{ this.renderSearchMsg() }*/}
             </div>
         )
     }
+
+    handleChange = e => this.props.setQuery(e.target.value)
+
+    handleSubmit = e => {
+        const { query, lastQuery } = this.props
+
+        e.preventDefault()
+        if (query && query !== lastQuery) {
+            this.props.loadMovies(modes.SEARCH, query)
+            this.props.history.push(`/search/${query}`)
+        }
+    }
+
+    addFocus = () => {
+        this.setState({
+            isFocus: true
+        })
+    }
+
+    removeFocus = () => {
+        this.setState({
+            isFocus: false
+        })
+    }
+
+    loadPopular = () => {
+        this.props.loadMovies()
+    }
+
+    renderSearchMsg = () => {
+        if (!this.props.total_results) {
+            return (
+                <div>
+                    <div className='search__msg'>No results :(</div>
+                    <div
+                        onClick={ this.loadPopular }
+                        className='search__link'>
+                        Popular movies
+                    </div>
+                </div>
+            )
+        }
+    }
 }
 
-export default connect(state => ({
+export default withRouter(connect(state => ({
     query: state.movies.query,
     lastQuery: state.movies.lastQuery,
     total_results: state.movies.total_results
 }), {
     loadMovies,
     setQuery
-})(SearchForm)
+})(SearchForm))
