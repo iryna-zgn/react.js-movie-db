@@ -10,6 +10,8 @@ const renderBackdrops = images => {
 }
 
 export default function Backdrops(props) {
+    if (!props.images.backdrops.length) return null
+
     return (
         <div className='backdrops'>
             <h2 className='t2'>Backdrops</h2>
