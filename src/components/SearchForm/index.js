@@ -10,7 +10,8 @@ class SearchForm extends Component {
         query: PropTypes.string,
         lastQuery: PropTypes.string,
         setQuery: PropTypes.func,
-        loadMovies: PropTypes.func
+        loadMovies: PropTypes.func,
+        // total_results: PropTypes.number
     }
 
     state = {
@@ -38,7 +39,6 @@ class SearchForm extends Component {
                     </div>
                     <button className='search__btn icon-search'/>
                 </form>
-                {/*{ this.renderSearchMsg() }*/}
             </div>
         )
     }
@@ -49,10 +49,15 @@ class SearchForm extends Component {
         const { query, lastQuery } = this.props
 
         e.preventDefault()
+
         if (query && query !== lastQuery) {
             this.props.loadMovies(modes.SEARCH, query)
             this.props.history.push(`/search/${query}`)
         }
+        //
+        // this.props.total_results
+        //     ? this.props.history.push(`/search/${query}`)
+        //     : this.props.history.push('/no-results')
     }
 
     addFocus = () => {
@@ -66,31 +71,12 @@ class SearchForm extends Component {
             isFocus: false
         })
     }
-
-    loadPopular = () => {
-        this.props.loadMovies()
-    }
-
-    renderSearchMsg = () => {
-        if (!this.props.total_results) {
-            return (
-                <div>
-                    <div className='search__msg'>No results :(</div>
-                    <div
-                        onClick={ this.loadPopular }
-                        className='search__link'>
-                        Popular movies
-                    </div>
-                </div>
-            )
-        }
-    }
 }
 
 export default withRouter(connect(state => ({
     query: state.movies.query,
-    lastQuery: state.movies.lastQuery,
-    total_results: state.movies.total_results
+    lastQuery: state.movies.lastQuery
+    // total_results: state.movies.total_results
 }), {
     loadMovies,
     setQuery

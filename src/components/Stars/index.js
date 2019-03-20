@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 export default class Stars extends Component {
     render() {
+        if (!this.props.evaluation) return null
+
         return (
             <div className='evaluation'>
                 <div className='evaluation__stars'>
