@@ -4,7 +4,6 @@ import Header from './components/Header'
 import Home from './pages/Home'
 import Search from './pages/Search'
 import Movie from './pages/Movie'
-// import NoResults from './pages/NoResults'
 import Footer from './components/Footer'
 import Preloader from './components/Preloader'
 import { connect } from 'react-redux'
@@ -25,8 +24,6 @@ class App extends Component {
                         <Route exact path='/' component={ Home }/>
                         <Route path='/search/:query' render={ this.getSearch }/>
                         <Route path='/movie/:id' render={ this.getMovie }/>
-                        {/*TODO page NoResults*/}
-                        {/*<Route path='/no-results' component={ NoResults }/>*/}
                     </Switch>
                 </div>
                 <Footer/>

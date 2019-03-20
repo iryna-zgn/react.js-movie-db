@@ -50,6 +50,7 @@ export default (state = new ReducerState(), action) => {
         case actions.LOAD_MOVIE + actions.SUCCESS:
             return state
                     .set('movie', response)
+                    .set('total_results', 1)
                     .set('loading', false)
 
         case actions.LOAD_CREDITS + actions.START:

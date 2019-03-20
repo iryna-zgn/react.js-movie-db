@@ -4,14 +4,15 @@ import { connect } from 'react-redux'
 import { loadMovies, setQuery } from './../../ac'
 import { classes, modes } from './../../constants'
 import { withRouter } from 'react-router-dom'
+import NoResults from './../../components/NoResults'
 
 class SearchForm extends Component {
     static propTypes = {
         query: PropTypes.string,
         lastQuery: PropTypes.string,
         setQuery: PropTypes.func,
-        loadMovies: PropTypes.func
-        // total_results: PropTypes.number
+        loadMovies: PropTypes.func,
+        total_results: PropTypes.number
     }
 
     state = {
@@ -39,6 +40,7 @@ class SearchForm extends Component {
                     </div>
                     <button className='search__btn icon-search'/>
                 </form>
+                { this.renderMsg() }
             </div>
         )
     }
@@ -54,10 +56,6 @@ class SearchForm extends Component {
             this.props.loadMovies(modes.SEARCH, query)
             this.props.history.push(`/search/${query}`)
         }
-        //
-        // this.props.total_results
-        //     ? this.props.history.push(`/search/${query}`)
-        //     : this.props.history.push('/no-results')
     }
 
     addFocus = () => {
@@ -71,12 +69,18 @@ class SearchForm extends Component {
             isFocus: false
         })
     }
+
+    renderMsg() {
+        if (!this.props.total_results) {
+            return <NoResults/>
+        }
+    }
 }
 
 export default withRouter(connect(state => ({
     query: state.movies.query,
-    lastQuery: state.movies.lastQuery
-    // total_results: state.movies.total_results
+    lastQuery: state.movies.lastQuery,
+    total_results: state.movies.total_results
 }), {
     loadMovies,
     setQuery
