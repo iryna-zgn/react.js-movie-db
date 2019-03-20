@@ -22,5 +22,10 @@ export function formatNumber(number, symbol='') {
 }
 
 export function formatTime(number) {
-    if (number) return `${Math.floor(number / 60)} h ${number % 60} min`
+    if (number) {
+        const h = Math.floor(number / 60)
+        const min = number % 60
+
+        return (h ? `${h} h` : '') + (min ? ` ${min} min` : '')
+    }
 }
