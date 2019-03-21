@@ -4,6 +4,7 @@ import { socLinks as links } from './../../paths'
 const renderItems = () => {
   return links.map(item => {
     if (!item.isActive) return null
+    
     return (
       <li
           key={ item.name }

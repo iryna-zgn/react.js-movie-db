@@ -16,13 +16,14 @@ export default class Stars extends Component {
 
     renderFilledStars = () => {
         const { evaluation } = this.props
+        const count = this.getCount(evaluation)
         const stars = []
 
-        for (let i = 0; i < this.getStarCount(evaluation); i++) {
+        for (let i = 0; i < count; i++) {
             stars.push(<span className='icon-star-filled'></span>)
         }
 
-        for (let i = 0; i < 5 - this.getStarCount(evaluation); i++) {
+        for (let i = 0; i < 5 - count; i++) {
             stars.push(<span className='icon-star'></span>)
         }
 
@@ -33,5 +34,5 @@ export default class Stars extends Component {
         })
     }
 
-    getStarCount = evaluation => Math.round(evaluation / 2)
+    getCount = evaluation => Math.round(evaluation / 2)
 }

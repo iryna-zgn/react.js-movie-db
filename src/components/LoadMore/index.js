@@ -7,8 +7,8 @@ import { loadNextPage } from './../../ac'
 
 class LoadMore extends Component {
     static propTypes = {
-        page: PropTypes.number.isRequired,
-        loadNextPage: PropTypes.func.isRequired,
+        page: PropTypes.number,
+        loadNextPage: PropTypes.func,
         loadingMore: PropTypes.bool,
         mode: PropTypes.string,
         query: PropTypes.string
@@ -19,15 +19,8 @@ class LoadMore extends Component {
             <div className='load-more'>
                 {
                     this.props.loadingMore
-                        ? <div
-                        className='load-more__preloader'>
-                        <Preloader />
-                    </div>
-                        : <div
-                        onClick={ this.handleClickMore }
-                        className='load-more__link'>
-                        Load more
-                    </div>
+                        ? <div className='load-more__preloader'><Preloader/></div>
+                        : <div onClick={ this.handleClickMore } className='load-more__link'>Load more</div>
                 }
             </div>
         )

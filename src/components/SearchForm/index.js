@@ -70,7 +70,7 @@ class SearchForm extends Component {
         })
     }
 
-    renderMsg() {
+    renderMsg = () => {
         if (!this.props.total_results) {
             return <NoResults/>
         }

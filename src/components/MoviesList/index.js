@@ -11,10 +11,7 @@ class MoviesList extends Component {
         movies: PropTypes.array,
         genres: PropTypes.array,
         pages: PropTypes.number,
-        page: PropTypes.number,
-        loadingMore: PropTypes.bool,
-        mode: PropTypes.string,
-        query: PropTypes.string
+        page: PropTypes.number
     }
 
     render() {
@@ -61,8 +58,5 @@ export default connect(state => ({
     movies: state.movies.results,
     genres: state.genres.genres,
     pages: state.movies.total_pages,
-    page: state.movies.page,
-    loadingMore: state.movies.loadingMore,
-    mode: state.movies.mode,
-    query: state.movies.query
+    page: state.movies.page
 }))(MoviesList)
