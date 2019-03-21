@@ -1,0 +1,42 @@
+.gallery
+  position: relative
+  background-color: #000000
+  text-align: center
+  font-size: 0
+  img
+    display: inline-block
+    margin: 0 auto
+    max-width: 100%
+    max-height: calc(100vh - 100px)
+  &__arrow
+    position: absolute
+    top: 50%
+    margin-top: -10px
+    font-size: 20px
+    font-weight: bold
+    color: #fff
+    cursor: pointer
+    &--right
+      right: 2px
+    &--left
+      left: 2px
+
+@media only screen and (min-width: 768px)
+  .gallery
+    &__arrow
+      margin-top: -15px
+      font-size: 30px
+      &--right
+        right: 10px
+      &--left
+        left: 10px
+
+@media only screen and (min-width: 1025px)
+  .gallery
+    &__arrow
+      color: rgba(255, 255, 255, 0.4)
+      transition: $transition
+    &__img
+      &:hover
+        .gallery__arrow
+          color: rgba(255, 255, 255, .8)

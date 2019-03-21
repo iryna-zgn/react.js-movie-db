@@ -18,5 +18,10 @@ export const actions = {
     SET_QUERY: 'SET_QUERY',
     START: 'START',
     SUCCESS: 'SUCCESS',
-    ERR: 'ERR'
+    ERR: 'ERR',
+    TOGGLE_MODAL: 'TOGGLE_MODAL'
+}
+
+export const modals = {
+    GALLERY_MODAL: 'GalleryModal'
 }

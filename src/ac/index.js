@@ -51,3 +51,10 @@ export function setQuery(query) {
         payload: { query }
     }
 }
+
+export function toggleModal(name, action) {
+    return {
+        type: actions.TOGGLE_MODAL,
+        payload: { name, action }
+    }
+}

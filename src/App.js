@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import Search from './pages/Search'
 import Movie from './pages/Movie'
 import Footer from './components/Footer'
+import Modals from './components/Modals'
 import Preloader from './components/Preloader'
 import { connect } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
@@ -27,6 +28,7 @@ class App extends Component {
                     </Switch>
                 </div>
                 <Footer/>
+                <Modals/>
                 { this.renderPreloader() }
             </div>
         )

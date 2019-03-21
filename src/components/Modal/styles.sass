@@ -1,0 +1,58 @@
+.modal
+  position: fixed
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  padding: 50px 10px
+  text-align: center
+  overflow-y: auto
+  z-index: 100
+  &__backdrop
+    position: fixed
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    background-color: rgba(0, 0, 0, .9)
+  &__container
+    position: relative
+    display: inline-block
+    vertical-align: middle
+    background-color: #ffffff
+    text-align: left
+    box-sizing: border-box
+  &:after
+    content: ""
+    display: inline-block
+    vertical-align: middle
+    height: 100%
+    width: .1%
+    margin-left: -.1%
+  &__close
+    position: absolute
+    right: 10px
+    top: 15px
+    text-decoration: none
+    font-size: 40px
+    line-height: .6
+    color: #fff
+    outline: none
+    cursor: pointer
+
+@media only screen and (min-width: 768px)
+  .modal
+    padding-left: 20px
+    padding-right: 20px
+    &__close
+      right: 20px
+
+@media only screen and (min-width: 1025px)
+  .modal
+    padding: 50px 30px
+    &__close
+      right: 30px
+      color: rgba(255, 255, 255, .7)
+      transition: $transition
+      &:hover
+        color: rgba(255, 255, 255, 1)
