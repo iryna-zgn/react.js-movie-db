@@ -2,6 +2,8 @@
 
 This project is based on TMDB RESTful API.
 
+[Link on GitHub Page](https://iryna-zgn.github.io/react.js-movie-db)
+
 ## Project setup
 ### `npm install`
 
