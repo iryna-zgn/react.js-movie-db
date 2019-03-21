@@ -15,21 +15,16 @@ export default class Stars extends Component {
     }
 
     renderFilledStars = () => {
-        const { evaluation } = this.props
-        const count = this.getCount(evaluation)
-        const stars = []
+        const count = this.getCount(this.props.evaluation)
+        const stars = new Array(5).fill('')
 
-        for (let i = 0; i < count; i++) {
-            stars.push(<span className='icon-star-filled'></span>)
-        }
-
-        for (let i = 0; i < 5 - count; i++) {
-            stars.push(<span className='icon-star'></span>)
-        }
+        stars.fill('-filled', 0, count)
 
         return stars.map((star, index) => {
             return (
-                <div key = { index } className='evaluation__stars-item'>{ star }</div>
+                <div key = { index } className='evaluation__stars-item'>
+                    <span className={`icon-star${star}`}/>
+                </div>
             )
         })
     }
