@@ -29,7 +29,7 @@ class Modal extends Component {
     }
 
     toggleBodyFixed = () => {
-        document.querySelector('html').classList.toggle(classes.isFixed)
+        document.querySelector('html').classList.toggle(classes.IS_FIXED)
     }
 
     componentDidMount() {
