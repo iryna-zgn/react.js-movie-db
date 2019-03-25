@@ -13,7 +13,8 @@ import { Route, Switch } from 'react-router-dom'
 class App extends Component {
     static propTypes = {
         query: PropTypes.string,
-        loading: PropTypes.bool
+        loading: PropTypes.bool,
+        totalResults: PropTypes.number
     }
 
     render() {
@@ -43,7 +44,9 @@ class App extends Component {
 
     getMovie = ({ match }) => {
         const { id } = match.params
-        return <Movie  id={ id }/>
+        if (this.props.totalResults) {
+            return <Movie  id={ id }/>
+        }
     }
 
     renderPreloader = () => {
@@ -52,6 +55,7 @@ class App extends Component {
 }
 
 export default connect(state => ({
+    totalResults: state.movies.total_results,
     query: state.movies.query,
     loading: state.movies.loading
 }))(App)
