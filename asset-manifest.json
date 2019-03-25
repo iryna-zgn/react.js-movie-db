@@ -1,5 +1,5 @@
 {
-  "main.css": "/react.js-movie-db/static/css/main.9f551dd3.chunk.css",
+  "main.css": "/react.js-movie-db/static/css/main.36b81043.chunk.css",
   "main.js": "/react.js-movie-db/static/js/main.282617c2.chunk.js",
   "main.js.map": "/react.js-movie-db/static/js/main.282617c2.chunk.js.map",
   "runtime~main.js": "/react.js-movie-db/static/js/runtime~main.36e52f1e.js",
@@ -7,8 +7,8 @@
   "static/js/2.e6180dfa.chunk.js": "/react.js-movie-db/static/js/2.e6180dfa.chunk.js",
   "static/js/2.e6180dfa.chunk.js.map": "/react.js-movie-db/static/js/2.e6180dfa.chunk.js.map",
   "index.html": "/react.js-movie-db/index.html",
-  "precache-manifest.dec3434979d7036c092d285a26899a9b.js": "/react.js-movie-db/precache-manifest.dec3434979d7036c092d285a26899a9b.js",
+  "precache-manifest.f8c4b8686a1b3475c823ca6e6e96acce.js": "/react.js-movie-db/precache-manifest.f8c4b8686a1b3475c823ca6e6e96acce.js",
   "service-worker.js": "/react.js-movie-db/service-worker.js",
-  "static/css/main.9f551dd3.chunk.css.map": "/react.js-movie-db/static/css/main.9f551dd3.chunk.css.map",
+  "static/css/main.36b81043.chunk.css.map": "/react.js-movie-db/static/css/main.36b81043.chunk.css.map",
   "static/media/styles.sass": "/react.js-movie-db/static/media/icomoon.bb25a210.ttf"
 }
