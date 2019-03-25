@@ -1,11 +1,14 @@
 .backdrops
   margin-top: 70px
   &__gallery
+    position: relative
     display: flex
     align-items: center
     overflow-x: auto
   img
     display: block
     max-width: 100%
-    width: 100%
     cursor: pointer
+    transition: $transition
+    &:hover
+      opacity: .95

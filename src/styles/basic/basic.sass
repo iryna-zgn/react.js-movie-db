@@ -1,5 +1,13 @@
 html
   overflow-y: scroll
+  &.is-fixed
+    overflow: hidden
+
+
+@media only screen and (min-width: 1025px)
+  html
+    &.is-fixed
+      margin-right: 15px
 
 body
   font-family: $primary-font

@@ -5,6 +5,8 @@ import { getImg, separateByCommas, getYear, formatNumber, formatTime  } from '..
 import Stars from './../../components/Stars'
 import Cast from './../../components/Cast'
 import Backdrops from './../../components/Backdrops'
+import { toggleModal } from './../../ac'
+import { modals } from './../../constants'
 
 class MovieDetails extends Component {
     static propTypes = {
@@ -20,7 +22,10 @@ class MovieDetails extends Component {
             <div className='movie-details'>
                 <div className='movie-details__parts'>
                     <div className='movie-details__const'>
-                        <img src={ getImg(movie.poster_path) } alt=''/>
+                        <div className='movie-details__poster'
+                             onClick={() => this.showImg(movie.poster_path)}>
+                            <img src={ getImg(movie.poster_path) } alt=''/>
+                        </div>
                     </div>
                     <div className='movie-details__var'>
                         <h1>{movie.title }</h1>
@@ -29,10 +34,10 @@ class MovieDetails extends Component {
                             count={ movie.vote_count }/>
                         <table className='movie-details__props'>
                             <tbody>
-                            { this.renderRows(this.getDetails(movie)) }
-                            { this.renderRows(this.getDataByName(movie.production_countries, 'Country')) }
-                            { this.renderRows(this.getDataByName(movie.production_companies, 'Production')) }
-                            { this.renderRows(this.getCrew(credits.crew)) }
+                              { this.renderRows(this.getDetails(movie)) }
+                              { this.renderRows(this.getDataByName(movie.production_countries, 'Country')) }
+                              { this.renderRows(this.getDataByName(movie.production_companies, 'Production')) }
+                              { this.renderRows(this.getCrew(credits.crew)) }
                             </tbody>
                         </table>
                     </div>
@@ -146,9 +151,19 @@ class MovieDetails extends Component {
 
         return <Cast cast={ cast }/>
     }
+
+    showImg = (file_path) => {
+        this.props.toggleModal(
+            modals.GALLERY_MODAL,
+            true,
+            { images: [{ file_path }] }
+        )
+    }
 }
 
 export default connect(state => ({
     movie: state.movies.movie,
     credits: state.movies.credits
-}))(MovieDetails)
+}), {
+    toggleModal
+})(MovieDetails)

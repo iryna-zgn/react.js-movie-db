@@ -24,7 +24,7 @@ class Modals extends Component {
         return [
             {
                 name: modals.GALLERY_MODAL,
-                component: <GalleryModal name={ modals.GALLERY_MODAL }/>
+                component: <GalleryModal/>
             }
         ]
     }

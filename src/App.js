@@ -27,9 +27,11 @@ class App extends Component {
                         <Route path='/movie/:id' render={ this.getMovie }/>
                     </Switch>
                 </div>
-                <Footer/>
-                <Modals/>
-                { this.renderPreloader() }
+                <div>
+                  <Footer/>
+                  <Modals/>
+                  { this.renderPreloader() }
+                </div>
             </div>
         )
     }

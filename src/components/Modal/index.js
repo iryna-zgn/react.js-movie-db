@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { toggleModal } from './../../ac'
+import { classes } from './../../constants'
 
 class Modal extends Component {
     static propTypes = {
@@ -25,6 +26,23 @@ class Modal extends Component {
 
     closeModal = () => {
         this.props.toggleModal(this.props.name, false)
+    }
+
+    toggleBodyFixed = () => {
+        document.querySelector('html').classList.toggle(classes.isFixed)
+    }
+
+    componentDidMount() {
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' || e.key === 'Backspace') {
+                this.closeModal()
+            }
+        })
+        this.toggleBodyFixed()
+    }
+
+    componentWillUnmount() {
+        this.toggleBodyFixed()
     }
 }
 

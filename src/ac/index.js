@@ -52,9 +52,9 @@ export function setQuery(query) {
     }
 }
 
-export function toggleModal(name, action) {
+export function toggleModal(name, action, parameter) {
     return {
         type: actions.TOGGLE_MODAL,
-        payload: { name, action }
+        payload: { name, action, parameter }
     }
 }

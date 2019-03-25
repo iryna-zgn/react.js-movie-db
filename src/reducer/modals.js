@@ -3,7 +3,8 @@ import { actions } from './../constants'
 import { Map, Record } from 'immutable'
 
 const GenreRecord = Record({
-    isGalleryModal: false
+    isGalleryModal: false,
+    parameter: null
 })
 
 export default (state = new GenreRecord(), action) => {
@@ -11,7 +12,9 @@ export default (state = new GenreRecord(), action) => {
 
     switch (type) {
         case actions.TOGGLE_MODAL:
-            return state.set(`is${payload.name}`, payload.action)
+            return state
+                    .set(`is${payload.name}`, payload.action)
+                    .set('parameter', payload.parameter)
 
         default:
             return state
