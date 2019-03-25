@@ -47,6 +47,11 @@ export default (state = new ReducerState(), action) => {
         case actions.LOAD_MOVIE + actions.START:
             return state.set('loading', true)
 
+        case actions.LOAD_MOVIE + actions.ERR:
+            return state
+                    .set('total_results', 0)
+                    .set('loading', false)
+
         case actions.LOAD_MOVIE + actions.SUCCESS:
             return state
                     .set('movie', response)

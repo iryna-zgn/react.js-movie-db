@@ -14,7 +14,7 @@ class Backdrops extends Component {
     }
 
     render() {
-        if (!this.props.images.backdrops.length) return null
+        if (!this.props.images) return null
 
         return (
             <div className='backdrops'>
@@ -27,7 +27,7 @@ class Backdrops extends Component {
     }
 
     renderBackdrops = images => {
-        if (!images) return null
+        if (!images.backdrops) return null
 
         return images.backdrops.map((el, index) => {
             return (
