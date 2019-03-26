@@ -79,30 +79,29 @@ class MovieDetails extends Component {
     }
 
     getCrew = (data=[]) => {
-        const jobs = [
-            'Director',
-            'Producer',
-            'Screenplay',
-            'Writer',
-            'Music',
-            'Original Music Composer'
-        ]
-        const m = new Map()
+        const selectedPeople = {
+            'Director': '',
+            'Producer': '',
+            'Screenplay': '',
+            'Writer': '',
+            'Music': '',
+            'Original Music Composer': ''
+        }
 
-        jobs.forEach(job => {
-            data.forEach(el => {
-                if (el.job === job) {
-                    m.set(el.job, m.has(el.job) ? `${m.get(el.job)}, ${el.name}` : el.name)
-                }
-            })
-        })
-
-        return [...m.entries()].map(el => {
-            return {
-                key: el[0],
-                val: el[1]
+        data.forEach(el => {
+            if (el.job in selectedPeople) {
+                selectedPeople[el.job] += selectedPeople[el.job] ? `, ${el.name}` : el.name
             }
         })
+
+        for (let person in selectedPeople) {
+            selectedPeople[person] = {
+                key: person,
+                val: selectedPeople[person]
+            }
+        }
+
+        return Object.values(selectedPeople)
     }
 
     getDataByName = (data=[], name='') => {
