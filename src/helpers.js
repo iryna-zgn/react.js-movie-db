@@ -1,5 +1,5 @@
 import { Map } from 'immutable'
-import { URL_IMG } from './paths'
+import { URL_IMG } from './links'
 
 export function objToMap(obj, DataRecord = Map) {
     return Object.keys(obj).reduce((acc, key) => acc.set(key, obj[key]), new DataRecord())

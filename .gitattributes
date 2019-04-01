@@ -1,2 +1,2 @@
-testfile filter=git-crypt diff=git-crypt
+/src/links.js filter=git-crypt diff=git-crypt
 *.key filter=git-crypt diff=git-crypt

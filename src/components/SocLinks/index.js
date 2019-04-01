@@ -1,10 +1,10 @@
 import React from 'react'
-import { socLinks as links } from './../../paths'
+import { socLinks as links } from './../../links'
 
 const renderItems = () => {
   return links.map(item => {
     if (!item.isActive) return null
-    
+
     return (
       <li
           key={ item.name }
