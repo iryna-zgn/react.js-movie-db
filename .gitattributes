@@ -1,1 +1,1 @@
-/src/path.js filter=git-crypt diff=git-crypt
+test filter=git-crypt diff=git-crypt
