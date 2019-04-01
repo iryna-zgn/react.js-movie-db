@@ -1,2 +1,2 @@
-test filter=git-crypt diff=git-crypt
+testfile filter=git-crypt diff=git-crypt
 *.key filter=git-crypt diff=git-crypt
