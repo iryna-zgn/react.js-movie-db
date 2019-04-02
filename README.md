@@ -1,6 +1,6 @@
 # Rho-movies
 
-This project is based on [TMDB](https://developers.themoviedb.org/3/getting-started/introduction) API.
+This project is based on [TMDB API](https://developers.themoviedb.org/3/getting-started/introduction).
 
 [Link on GitHub Page](https://iryna-zgn.github.io/react.js-movie-db)
 
